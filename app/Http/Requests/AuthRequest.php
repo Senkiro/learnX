@@ -18,17 +18,18 @@ class AuthRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|max:6',
         ];
     }
+
     public function messages(): array
     {
-      return [
-         'email.required' => 'Bạn chưa nhập Email',
-          'email.email'=> 'Email chưa đúng định dạng',
-          'password.required' => 'Bạn chưa nhập Password',
+        return [
+            'email.required' => 'Bạn chưa nhập Email',
+            'email.email' => 'Email chưa đúng định dạng',
+            'password.required' => 'Bạn chưa nhập Password',
+            'password.max' => 'Mật khẩu chỉ có 6 số ',
 
-
-      ];
+        ];
     }
 }
