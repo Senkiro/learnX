@@ -72,6 +72,9 @@ table strong{
     max-width: 200px;
     font-size: 13px;
 }
+.mb15{
+    margin-bottom:15px ;
+}
 
 .mr10{
     margin-right:10px ;
@@ -79,4 +82,27 @@ table strong{
 
 .mr5{
     margin-right:5px ;
+}
+
+.box .ibox{
+    box-shadow: 0 2px 4px;
+}
+
+.control-label{
+    display: block;
+}
+
+.panel-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: black;
+}
+
+.panel-description{
+    font-size: 15px;
+}
+
+.form-control{
+    height: 31px;
 }

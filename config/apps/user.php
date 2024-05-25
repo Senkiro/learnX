@@ -1,6 +1,13 @@
 <?php
 
 return [
-    'title' => 'Quản Lý Thành Viên',
-    'tableHeading' => 'Danh sách thành viên'
+    'index' =>[
+        'title' => 'Quản Lý Thành Viên',
+        'table' => 'Danh sách thành viên',
+    ],
+
+    'create'=>[
+        'title' => 'Thêm mới thành viên'
+    ]
 ];
+

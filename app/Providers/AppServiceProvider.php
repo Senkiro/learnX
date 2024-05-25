@@ -8,7 +8,9 @@ class AppServiceProvider extends ServiceProvider
 {
     protected $serviceBinding =[
         'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
-        'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository'
+        'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
+        'App\repositories\Interfaces\ProvinceRepositoryInterface' => 'App\repositories\ProvinceRepository',
+        'App\repositories\Interfaces\DistrictRepositoryInterface' => 'App\Repositories\DistrictRepository',
     ];
     /**
      * Register any application services.
