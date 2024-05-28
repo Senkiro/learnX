@@ -14,4 +14,12 @@ class Ward extends Model
     ];
 
     protected $table = 'wards';
+
+    protected $primaryKey = 'code';
+    public $incrementing = false;
+
+    public function provinces()
+    {
+        return  $this->belongsTo(District::class, 'district_code','code');
+    }
 }

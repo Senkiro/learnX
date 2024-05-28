@@ -1,13 +1,7 @@
 <?php
 
 namespace App\repositories;
-
-use App\Models\District;
-use App\Models\User;
 use App\repositories\Interfaces\BaseRepositoryInterface;
-use App\repositories\Interfaces\DistrictRepositoryInterface;
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Model;
 
 
@@ -27,5 +21,19 @@ class BaseRepository implements BaseRepositoryInterface
     public function getAll()
     {
         return $this->model->all();
+    }
+
+    public function create(array $payload = [])
+    {
+        $model =  $this->model->create($payload);
+        return $model->fresh();
+    }
+
+    public function findById(
+        int $modelId,
+        array $column = ['*'],
+        array $relation = []
+    ){
+        return $this->model->select($column)->with($relation)->findorFail($modelId);
     }
 }

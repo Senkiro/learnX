@@ -1,27 +1,26 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
+use Http\Client\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\repositories\DistrictRepository;
+use App\Http\Requests\StoreUserRequest;
 use App\repositories\ProvinceRepository;
 use App\repositories\WardRepository;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     protected $userService;
     protected $provinceRepository;
-    protected $districtRepository;
 
     protected $wardRepository;
-    public function __construct(UserService $userService , ProvinceRepository $provinceRepository, DistrictRepository $districtRepository, WardRepository $wardRepository)
-    {
+    public function __construct(
+        UserService $userService ,
+        ProvinceRepository $provinceRepository,
+        WardRepository $wardRepository
+    ){
         $this->userService=$userService;
         $this->provinceRepository=$provinceRepository;
-        $this->districtRepository=$districtRepository;
         $this->wardRepository=$wardRepository;
     }
     public function index(){
@@ -44,9 +43,7 @@ class UserController extends Controller
     }
 
     public function create(){
-
         $provinces = $this->provinceRepository->getAll();
-        $districts = $this->districtRepository->getAll();
         $wards = $this->wardRepository->getAll();
         $config=[
             'css' =>[
@@ -54,14 +51,25 @@ class UserController extends Controller
             ],
             'js' =>[
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend/library/location.js'
+                'backend/plugin/ckeditor/ckeditor.js',
+                'backend/plugin/ckfinder/ckfinder.js',
+                'backend/library/location.js',
             ]
         ];
         $config['seo'] = config('apps.user');
         $template = 'backend.user.create';
         return view('backend.dashboard.layout', compact(
-            'template','config','provinces','districts','wards'
+            'template','config','provinces','wards'
         ));
     }
+
+    public function store(StoreUserRequest $request)
+    {
+        if($this -> userService->create($request)){
+            return redirect()->route('user.index')->with('success','Thêm mới thành công');
+        }
+        return redirect()->route('user.index')->with('error','Thêm mới thất bại');
+    }
+
 
 }

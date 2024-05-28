@@ -9,4 +9,5 @@ namespace App\repositories\Interfaces;
 interface WardRepositoryInterface
 {
     public function getAll();
+    public function findWardByDistrict(int $district_id);
 }

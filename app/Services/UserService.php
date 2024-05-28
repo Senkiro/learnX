@@ -6,6 +6,9 @@ use App\Models\User;
 
 use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
+use Carbon\Carbon;
+use http\Client\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserService
@@ -22,5 +25,27 @@ class UserService implements UserServiceInterface
     {
         $user = $this->userRepository->getAllPaginate();
         return $user;
+    }
+
+    public function create($request){
+        DB::beginTransaction();
+        try {
+
+            $payload  = $request->except(['_token','send','re_password']);
+            $carbonDate = Carbon::createFromFormat('Y-m-d', $payload['birthday']);
+            $payload['birthday'] = $carbonDate->format('Y-m-d H:i:s');
+            $payload['password'] = bcrypt($payload['password']);
+
+//            dd($payload);
+            $user = $this->userRepository->create($payload);
+//            dd($user);
+
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
     }
 }

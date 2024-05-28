@@ -27,6 +27,8 @@ Route::group(['prefix'=>'user'],function (){
         ->middleware('admin');
     Route::get('destroy',[UserController::class,'destroy'])->name('user.destroy')
         ->middleware('admin');
+    Route::post('store',[UserController::class,'store'])->name('user.store')
+        ->middleware('admin');
 });
 
 #AJAX
