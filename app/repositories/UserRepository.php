@@ -24,4 +24,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return User::paginate(5) ;
     }
+
+
 }

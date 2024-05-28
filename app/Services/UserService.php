@@ -23,7 +23,7 @@ class UserService implements UserServiceInterface
     }
     public function paginate()
     {
-        $user = $this->userRepository->getAllPaginate();
+        $user = $this->userRepository->pagination(['id','email','phone','address','name','publish']);
         return $user;
     }
 
@@ -32,14 +32,54 @@ class UserService implements UserServiceInterface
         try {
 
             $payload  = $request->except(['_token','send','re_password']);
-            $carbonDate = Carbon::createFromFormat('Y-m-d', $payload['birthday']);
-            $payload['birthday'] = $carbonDate->format('Y-m-d H:i:s');
+            $payload['birthday'] = $this->converBirthdayDate($payload['birthday']);
             $payload['password'] = bcrypt($payload['password']);
 
 //            dd($payload);
             $user = $this->userRepository->create($payload);
 //            dd($user);
 
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+
+    public function update($id,$request){
+        DB::beginTransaction();
+        try {
+
+            $payload  = $request->except(['_token','send']);
+            $payload['birthday'] = $this->converBirthdayDate($payload['birthday']);
+
+//            dd($payload);
+            $user = $this->userRepository->update($id,$payload);
+//            dd($user);
+
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+    }
+
+    public function converBirthdayDate($birthday = ''){
+        $carbonDate = Carbon::createFromFormat('Y-m-d',$birthday);
+        $birthday = $carbonDate->format('Y-m-d H:i:s');
+        return $birthday;
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+        try {
+            $user = $this->userRepository->delete($id);
             DB::commit();
             return true;
         }catch (\Exception $exception){

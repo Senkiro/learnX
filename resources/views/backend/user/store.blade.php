@@ -10,7 +10,12 @@
     </div>
 @endif
 
-<form action="{{route('user.store')}}" method="post" class="box">
+@php
+$url = ($config['method'] == 'create') ? route('user.store') : route('user.update',
+    $user->id);
+@endphp
+
+<form action="{{$url}}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -32,7 +37,7 @@
                                     <input
                                         type="text"
                                         name="email"
-                                        value="{{old('email')}}"
+                                        value="{{old('email',($user->email) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -46,7 +51,7 @@
                                     <input
                                         type="text"
                                         name="name"
-                                        value="{{old('name')}}"
+                                        value="{{old('name',($user->name) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -68,7 +73,9 @@
                                     </label>
                                     <select name="user_catalogue_id" id="" class="form-control setupSelect2">
                                         @foreach($userCatalogue as $key => $item)
-                                            <option @if(old('user_catalogue_id')== $key) selected @endif
+                                            <option {{$key == old('user_catalogue_id',(isset
+                                            ($user->user_catalogue_id)) ?
+                                            $user->user_catalogue_id: '') ? 'selected' : ''}}
                                             value="{{$key}}">{{$item}}</option>
                                         @endforeach
                                     </select>
@@ -82,13 +89,15 @@
                                     <input
                                         type="date"
                                         name="birthday"
-                                        value="{{old('birthday')}}"
+                                        value="{{old('birthday',(isset($user->birthday)) ?
+                                        date('Y-m-d',strtotime($user->birthday)):'')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
                                 </div>
                             </div>
                         </div>
+                        @if($config['method']=='create')
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
@@ -119,6 +128,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         <div class="row mb15">
                             <div class="col-lg-12">
                                 <div class="form-row">
@@ -128,7 +138,7 @@
                                     <input
                                         type="text"
                                         name="image"
-                                        value="{{old('image')}}"
+                                        value="{{old('image',($user->image) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -199,7 +209,7 @@
                                     <input
                                         type="text"
                                         name="address"
-                                        value="{{old('address')}}"
+                                        value="{{old('address',($user->address) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -215,7 +225,7 @@
                                     <input
                                         type="number"
                                         name="phone"
-                                        value="{{old('phone')}}"
+                                        value="{{old('phone',($user->phone) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -228,7 +238,7 @@
                                     <input
                                         type="text"
                                         name="description"
-                                        value="{{old('description')}}"
+                                        value="{{old('description',($user->description) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -264,7 +274,7 @@
 {{--</script>--}}
 
 <script>
-    var province_id = '{{old('province_id')}}'
-    var district_id = '{{old('district_id')}}'
-    var ward_id = '{{old('ward_id')}}'
+    var province_id = '{{(isset($user->province_id)) ? $user->province_id : old('province_id')}}'
+    var district_id = '{{(isset($user->district_id)) ? $user->district_id : old('district_id')}}'
+    var ward_id = '{{(isset($user->ward_id)) ? $user->ward_id : old('ward_id')}}'
 </script>

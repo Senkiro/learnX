@@ -10,10 +10,10 @@
             <div class="ibox-content">
                 @include('backend.user.component.filter')
                 @include('backend.user.component.table')
-
             </div>
         </div>
     </div>
 </div>
+
 
 
