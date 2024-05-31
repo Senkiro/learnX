@@ -80,6 +80,9 @@ table strong{
     margin-right:10px ;
 }
 
+.ml10{
+    margin-left: 10px;
+}
 .mr5{
     margin-right:5px ;
 }
@@ -105,4 +108,29 @@ table strong{
 
 .form-control{
     height: 31px;
+}
+
+.active-bg{
+    background: #e1fad5 !important;
+}
+#checkAll,
+.checkBoxItem{
+    height: 15px;
+    width: 15px;
+}
+
+.switchery-small {
+    border-radius: 20px;
+    height: 20px;
+    width: 33px;
+}
+
+
+.switchery-small>small {
+    height: 20px;
+    width: 20px;
+}
+
+.select2-container--default{
+    margin-right: 10px;
 }

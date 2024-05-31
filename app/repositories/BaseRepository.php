@@ -22,13 +22,19 @@ class BaseRepository implements BaseRepositoryInterface
         array $column=['*'],
         array $condition=[],
         array $join=[],
-        int $perpage = 5
+        array $extend = [],
+        int $perpage = 20
+
     ){
-        $query = $this->model->select($column)->where($condition);
+        $query = $this->model->select($column)->where(function ($query) use ($condition) {
+            if (isset($condition['keyword']) && !empty($condition['keyword'])) {
+                $query->where('name', 'LIKE', ''. $condition['keyword'] . '%');
+            }
+        });
         if (!empty($join)){
             $query->join(...$join);
         }
-        return $query->paginate($perpage);
+        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
     }
 
     public function getAll()
@@ -57,6 +63,10 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->findById($id);
         return $model->update($payload);
+    }
+
+    public function updateByWhereIn(String $whereInField = '',array $whereIn = [],array $payload = []){
+        return $this->model->whereIn($whereInField,$whereIn)->update($payload);
     }
 
     public function delete(int $id=0)

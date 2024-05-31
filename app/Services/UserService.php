@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
 use Carbon\Carbon;
-use http\Client\Request;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -21,10 +20,21 @@ class UserService implements UserServiceInterface
     {
         $this->userRepository = $userRepository;
     }
-    public function paginate()
+
+
+    public function paginate($request)
     {
-        $user = $this->userRepository->pagination(['id','email','phone','address','name','publish']);
+        $condition['keyword'] = addslashes($request->input('keyword'));
+        $condition['publish'] = $request->integer('publish');
+        $perPage =$request->integer('perpage');
+        $user = $this->userRepository->pagination($this->paginateSelect(),$condition,[],
+        ['path' => 'user/index'],$perPage);
         return $user;
+    }
+
+    private function paginateSelect()
+    {
+        return ['id','email','phone','address','name','publish'];
     }
 
     public function create($request){
@@ -87,5 +97,39 @@ class UserService implements UserServiceInterface
             echo $exception->getMessage();
             return false;
         }
+    }
+
+    public function updateStatus($post = []){
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = (($post['value'])==1 ? 0 : 1);
+
+            $user = $this->userRepository->update($post['modelId'],$payload);
+
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+
+    }
+
+    public function updateStatusAll($post = []){
+        DB::beginTransaction();
+        try {
+            $payload[$post['field']] = $post['value'];
+
+            $flag = $this->userRepository->updateByWhereIn('id',$post['id'],$payload);
+
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+
     }
 }

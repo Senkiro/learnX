@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Backend;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
-use Http\Client\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\repositories\ProvinceRepository;
 use App\repositories\WardRepository;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -28,16 +28,18 @@ class UserController extends Controller
         $this->wardRepository=$wardRepository;
         $this->userRepository=$userRepository;
     }
-    public function index(){
+    public function index(Request $request){
 
-        $users = $this->userService->paginate();
+        $users = $this->userService->paginate($request);
 
         $config= [
-            'js' =>[
-                'backend/js/plugins/switchery/switchery.js',
-            ],
             'css' =>[
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
                 'backend/css/plugins/switchery/switchery.css'
+            ],
+            'js' =>[
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/js/plugins/switchery/switchery.js',
             ]
         ]; ;
         $config['seo'] = config('apps.user');
@@ -53,6 +55,7 @@ class UserController extends Controller
         $config=[
             'css' =>[
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+
             ],
             'js' =>[
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
