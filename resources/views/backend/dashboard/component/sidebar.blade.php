@@ -24,7 +24,7 @@
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Quản Lí</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{route('user.index')}}">QL thành viên</a></li>
-                    <li><a href="index.html">QL nhóm thành viên</a></li>
+                    <li><a href="{{route('user.catalogue.index')}}">QL nhóm thành viên</a></li>
                 </ul>
             </li>
         </ul>

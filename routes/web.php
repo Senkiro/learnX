@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\DashboardController;
@@ -39,6 +40,31 @@ Route::group(['prefix'=>'user'],function (){
     Route::get('{id}/delete',[UserController::class,'delete'])->where(['id'=>'[0-9]+'])->name('user.delete')
         ->middleware('admin');
     Route::post('{id}/destroy',[UserController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('user.destroy')
+        ->middleware('admin');
+
+});
+
+#USER CATALOGUE ROUTE
+Route::group(['prefix'=>'user/catalogue'],function (){
+    Route::get('index',[UserCatalogueController::class,'index'])->name('user.catalogue.index')
+        ->middleware('admin');
+
+    #CREATE
+    Route::get('create',[UserCatalogueController::class,'create'])->name('user.catalogue.create')
+        ->middleware('admin');
+    Route::post('store',[UserCatalogueController::class,'store'])->name('user.catalogue.store')
+        ->middleware('admin');
+
+    #UPDATE
+    Route::get('{id}/edit',[UserCatalogueController::class,'edit'])->where(['id'=>'[0-9]+'])->name('user.catalogue.edit')
+        ->middleware('admin');
+    Route::post('{id}/update',[UserCatalogueController::class,'update'])->where(['id'=>'[0-9]+'])->name('user.catalogue.update')
+        ->middleware('admin');
+
+    #DELETE
+    Route::get('{id}/delete',[UserCatalogueController::class,'delete'])->where(['id'=>'[0-9]+'])->name('user.catalogue.delete')
+        ->middleware('admin');
+    Route::post('{id}/destroy',[UserCatalogueController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('user.catalogue.destroy')
         ->middleware('admin');
 
 });

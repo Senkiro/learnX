@@ -4,21 +4,20 @@ namespace App\Services;
 
 use App\Models\User;
 
-use App\Repositories\UserRepository;
-use App\Services\Interfaces\UserServiceInterface;
-use Carbon\Carbon;
+use App\Repositories\UserCatalogueRepository;
+use App\Services\Interfaces\UserCatalogueServiceInterface;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class UserService
  * @package App\Services
  */
-class UserService implements UserServiceInterface
+class UserCatalogueService implements UserCatalogueServiceInterface
 {
-    protected $userRepository;
-    public function __construct(UserRepository $userRepository)
+    protected $userCatalogueRepository;
+    public function __construct(UserCatalogueRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
+        $this->userCatalogueRepository = $userRepository;
     }
 
 
@@ -27,27 +26,24 @@ class UserService implements UserServiceInterface
         $condition['keyword'] = addslashes($request->input('keyword'));
         $condition['publish'] = $request->integer('publish');
         $perPage =$request->integer('perpage');
-        $user = $this->userRepository->pagination($this->paginateSelect(),$condition,[],
-        ['path' => 'user/index'],$perPage);
-        return $user;
+        $userCatalogues = $this->userCatalogueRepository->pagination($this->paginateSelect(),$condition,[],
+        ['path' => 'user/catalogue/index'],$perPage,['users']
+        );
+//        dd($userCatalogues);
+        return $userCatalogues;
     }
 
     private function paginateSelect()
     {
-        return ['id','email','phone','address','name','publish'];
+        return ['id','name','description','publish'];
     }
 
     public function create($request){
         DB::beginTransaction();
         try {
 
-            $payload  = $request->except(['_token','send','re_password']);
-            $payload['birthday'] = $this->converBirthdayDate($payload['birthday']);
-            $payload['password'] = bcrypt($payload['password']);
-
-//            dd($payload);
-            $user = $this->userRepository->create($payload);
-//            dd($user);
+            $payload  = $request->except(['_token','send']);
+            $user = $this->userCatalogueRepository->create($payload);
 
             DB::commit();
             return true;
@@ -64,11 +60,8 @@ class UserService implements UserServiceInterface
         try {
 
             $payload  = $request->except(['_token','send']);
-            $payload['birthday'] = $this->converBirthdayDate($payload['birthday']);
 
-//            dd($payload);
-            $user = $this->userRepository->update($id,$payload);
-//            dd($user);
+            $user = $this->userCatalogueRepository->update($id,$payload);
 
             DB::commit();
             return true;
@@ -79,17 +72,12 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function converBirthdayDate($birthday = ''){
-        $carbonDate = Carbon::createFromFormat('Y-m-d',$birthday);
-        $birthday = $carbonDate->format('Y-m-d H:i:s');
-        return $birthday;
-    }
 
     public function destroy($id)
     {
         DB::beginTransaction();
         try {
-            $user = $this->userRepository->delete($id);
+            $userCatalogue = $this->userCatalogueRepository->delete($id);
             DB::commit();
             return true;
         }catch (\Exception $exception){
@@ -104,7 +92,7 @@ class UserService implements UserServiceInterface
         try {
             $payload[$post['field']] = (($post['value'])==1 ? 2 : 1);
 
-            $user = $this->userRepository->update($post['modelId'],$payload);
+            $userCatalogue = $this->userCatalogueRepository->update($post['modelId'],$payload);
 
             DB::commit();
             return true;
@@ -121,7 +109,7 @@ class UserService implements UserServiceInterface
         try {
             $payload[$post['field']] = $post['value'];
 
-            $flag = $this->userRepository->updateByWhereIn('id',$post['id'],$payload);
+            $flag = $this->userCatalogueRepository->updateByWhereIn('id',$post['id'],$payload);
 
             DB::commit();
             return true;

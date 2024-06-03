@@ -30,7 +30,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         array $condition=[],
         array $join=[],
         array $extend = [],
-        int $perpage = 20
+        int $perpage = 20,
+        array $relation = []
 
     ){
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
@@ -41,7 +42,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                     ->orWhere('address', 'LIKE', ''. $condition['keyword'] . '%');
             }
 
-            if(isset($condition['publish'])  && $condition['publish'] != -1){
+            if(isset($condition['publish'])  && $condition['publish'] != 0){
                 $query->where('publish','=', $condition['publish']);
             }
         });

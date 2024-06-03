@@ -21,6 +21,7 @@ interface BaseRepositoryInterface
         array $condition=[],
         array $join=[],
         array $extend = [],
-        int $perpage = 5
+        int $perpage = 5,
+        array $relation = []
     );
 }

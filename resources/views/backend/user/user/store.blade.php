@@ -1,4 +1,10 @@
-@include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['create']['title']])
+@if($config['method']=='create')
+    @include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['create']['title']])
+@endif
+
+@if($config['method']=='edit')
+    @include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['update']['title']])
+@endif
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -61,8 +67,8 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                         @php
                             $userCatalogue = [
                                     '[Chọn nhóm thành viên]',
-                                    'Quản trị viên',
-                                    'Cộng tác viên'
+                                    'Admin',
+                                    'User'
                             ];
                         @endphp
                         <div class="row mb15">
@@ -255,23 +261,6 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
     </div>
 </form>
 
-#Select2 js
-{{--<script>--}}
-{{--    (function ($) {--}}
-{{--        "use strict";--}}
-{{--        var HT = {};--}}
-{{--        var document = $(document)--}}
-
-{{--        HT.select2 = () => {--}}
-{{--            $('.setupSelect2').select2();--}}
-{{--        }--}}
-
-{{--        document.ready(function () {--}}
-{{--            HT.select2();--}}
-{{--        });--}}
-{{--    })(jQuery)--}}
-
-{{--</script>--}}
 
 <script>
     var province_id = '{{(isset($user->province_id)) ? $user->province_id : old('province_id')}}'

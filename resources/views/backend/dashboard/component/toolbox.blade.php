@@ -7,10 +7,10 @@
     </a>
     <ul class="dropdown-menu dropdown-user">
         <li><a href="#" class="changeStatusAll"  data-field="publish"
-               data-model="User" data-value="1">Active all members</a>
+               data-model="{{$model}}" data-value="2">Active all members</a>
         </li>
         <li><a href="#" class="changeStatusAll" data-field="publish"
-               data-model="User" data-value="0">Un Active all members</a>
+               data-model="{{$model}}" data-value="1">Un Active all members</a>
         </li>
     </ul>
     <a class="close-link">
