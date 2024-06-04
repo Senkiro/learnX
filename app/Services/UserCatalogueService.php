@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 
 use App\Repositories\UserCatalogueRepository;
+use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserCatalogueServiceInterface;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +16,11 @@ use Illuminate\Support\Facades\DB;
 class UserCatalogueService implements UserCatalogueServiceInterface
 {
     protected $userCatalogueRepository;
-    public function __construct(UserCatalogueRepository $userRepository)
+    protected $userRepository;
+    public function __construct(UserCatalogueRepository $userCatalogueRepositoryRepository, UserRepository $userRepository)
     {
-        $this->userCatalogueRepository = $userRepository;
+        $this->userCatalogueRepository = $userCatalogueRepositoryRepository;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -94,6 +97,8 @@ class UserCatalogueService implements UserCatalogueServiceInterface
 
             $userCatalogue = $this->userCatalogueRepository->update($post['modelId'],$payload);
 
+            $this->changeUserStaus($post,$payload[$post['field']]);
+
             DB::commit();
             return true;
         }catch (\Exception $exception){
@@ -104,12 +109,14 @@ class UserCatalogueService implements UserCatalogueServiceInterface
 
     }
 
-    public function updateStatusAll($post = []){
+    public function updateStatusAll($post){
         DB::beginTransaction();
         try {
             $payload[$post['field']] = $post['value'];
 
             $flag = $this->userCatalogueRepository->updateByWhereIn('id',$post['id'],$payload);
+
+            $this->changeUserStaus($post,$post['value']);
 
             DB::commit();
             return true;
@@ -118,6 +125,32 @@ class UserCatalogueService implements UserCatalogueServiceInterface
             echo $exception->getMessage();
             return false;
         }
+
+    }
+
+    public function changeUserStaus($post,$value)
+    {
+        DB::beginTransaction();
+        try {
+            $array = [];
+            if(isset($post['modelId'])){
+                $array[] = $post['modelId'];
+            }else{
+                $array = $post['id'];
+            }
+
+            $payload[$post['field']] = $value;
+
+            $this->userRepository->updateByWhereIn('user_catalogue_id',$array,$payload);
+
+            DB::commit();
+            return true;
+        }catch (\Exception $exception){
+            DB::rollBack();
+            echo $exception->getMessage();
+            return false;
+        }
+
 
     }
 }
