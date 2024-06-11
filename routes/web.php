@@ -4,11 +4,16 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\DashboardController;
 use \App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use \App\Http\Middleware\AuthenticateMiddleware;
 use \App\Http\Middleware\LoginMiddeware;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 Route::get('/', function () {
@@ -17,7 +22,8 @@ Route::get('/', function () {
 
 #BACKEND ROUTE
 Route::get('dashboard/index',[DashboardController::class,'index'])->name('dashboard.index')
-->middleware('admin');
+    ->middleware(['auth','verified']);
+
 
 #USER ROUTE
 Route::group(['prefix'=>'user'],function (){
@@ -77,6 +83,27 @@ Route::post('ajax/dashboard/changeStatus',[AjaxDashboardController::class,'chang
 Route::post('ajax/dashboard/changeStatusAll',[AjaxDashboardController::class,'changeStatusAll'])->name('ajax.dashboard.changeStatusAll')
     ->middleware('admin');
 
+#AUTHEN ROUTE
+
 Route::get('admin',[AuthController::class,'index'])->name('auth.admin');
 Route::post('login',[AuthController::class,'login'])->name('auth.login')->middleware('login');
 Route::get('logout',[AuthController::class,'logout'])->name('auth.logout');
+
+
+Route::get('create', [AuthController::class, 'showRegistrationForm'])->name('auth.create');
+Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+
+
+#EMAIL VERIFY
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [AuthController::class, 'verifyNotice'])
+        ->name('verification.notice');
+    Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])
+        ->middleware(['throttle:6,1'])->name('verification.resend');
+});
+
+Route::get('/email/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
+
+
+
+

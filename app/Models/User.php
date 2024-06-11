@@ -2,22 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Mail;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
@@ -33,24 +30,15 @@ class User extends Authenticatable
         'user_agent',
         'ip',
         'user_catalogue_id',
-        'publish'
+        'publish',
+        'verification_token'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
@@ -58,6 +46,29 @@ class User extends Authenticatable
 
     public function user_catalogues()
     {
-        return  $this->belongsTo(UserCatalogue::class, 'user_catalogue_id','id');
+        return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
+    }
+
+    public function generateVerificationToken()
+    {
+        $this->verification_token = Str::random(32);
+        $this->save();
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $verificationUrl = route('verification.verify', ['token' => $this->verification_token]);
+        Mail::send('backend.email.verify', ['url' => $verificationUrl], function ($message) {
+            $message->to($this->email)
+                ->subject('Verify Email Address');
+        });
+    }
+
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = now();
+        $this->verification_token = null;
+        $this->save();
     }
 }
+

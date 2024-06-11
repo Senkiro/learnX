@@ -14,34 +14,34 @@
     </tr>
     </thead>
     <tbody>
-    @if(isset($users)&& is_object($users))
+    @if(isset($users) && is_object($users))
         @foreach($users as $user)
             <tr>
                 <td>
                     <input type="checkbox" id="userCheckbox" value="{{$user->id}}" class="input-checkbox checkBoxItem">
                 </td>
                 <td>
-                    {{$user -> name}}
+                    {{$user->name}}
                 </td>
                 <td>
-                    {{$user -> email}}
+                    {{$user->email}}
                 </td>
                 <td>
-                    {{$user -> phone}}
+                    {{$user->phone}}
                 </td>
                 <td>
-                    {{$user -> address}}
+                    {{$user->address}}
                 </td>
                 <td>
-                    {{$user -> user_catalogues->name}}
+                    {{ isset($user->user_catalogues) ? $user->user_catalogues->name : ''}}
                 </td>
                 <td class="text-center js-switch-{{$user->id}}">
-                    <input type="checkbox" value="{{$user->publish}}" class="js-switch status " data-field="publish"  data-model="User"
-                        {{($user->publish==2) ? 'checked' : ''}} data-modelId="{{$user->id}}"/>
+                    <input type="checkbox" value="{{$user->publish}}" class="js-switch status" data-field="publish" data-model="User"
+                           {{($user->publish == 2) ? 'checked' : ''}} data-modelId="{{$user->id}}"/>
                 </td>
                 <td class="text-center">
-                    <a href="{{route('user.edit',$user->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                    <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <a href="{{route('user.edit', $user->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('user.delete', $user->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -49,4 +49,4 @@
     </tbody>
 </table>
 
- {{ $users->links('pagination::bootstrap-4') }}
+{{ $users->links('pagination::bootstrap-4') }}
