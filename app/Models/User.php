@@ -49,6 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
     }
 
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     public function generateVerificationToken()
     {
         $this->verification_token = Str::random(32);

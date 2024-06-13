@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ForgotPasswordController;
 use App\Http\Controllers\Backend\ResetPasswordController;
 use App\Http\Controllers\Backend\UserCatalogueController;
@@ -113,5 +114,28 @@ Route::middleware('auth')->group(function () {
 Route::get('/email/verify/{token}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
 
 
+#COURSE ROUTE
+Route::group(['prefix'=>'course'],function (){
+    Route::get('index',[CourseController::class,'index'])->name('course.index')
+        ->middleware('admin');
 
+    #CREATE
+    Route::get('create',[CourseController::class,'create'])->name('course.create')
+        ->middleware('admin');
+    Route::post('store',[CourseController::class,'store'])->name('course.store')
+        ->middleware('admin');
+
+    #UPDATE
+    Route::get('{id}/edit',[CourseController::class,'edit'])->where(['id'=>'[0-9]+'])->name('course.edit')
+        ->middleware('admin');
+    Route::post('{id}/update',[CourseController::class,'update'])->where(['id'=>'[0-9]+'])->name('course.update')
+        ->middleware('admin');
+
+    #DELETE
+    Route::get('{id}/delete',[CourseController::class,'delete'])->where(['id'=>'[0-9]+'])->name('course.delete')
+        ->middleware('admin');
+    Route::post('{id}/destroy',[CourseController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('course.destroy')
+        ->middleware('admin');
+
+});
 

@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li class="active">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Quản Lí</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Quản Lí thành viên</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{route('user.index')}}">QL thành viên</a></li>
                     <li><a href="{{route('user.catalogue.index')}}">QL nhóm thành viên</a></li>
@@ -29,10 +29,10 @@
             </li>
 
             <li class="active">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Quản Lí</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Quản Lí Khóa Học</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{route('user.index')}}">QL thành viên</a></li>
-                    <li><a href="{{route('user.catalogue.index')}}">QL nhóm thành viên</a></li>
+                    <li><a href="{{route('course.index')}}">QL khóa học</a></li>
+{{--                    <li><a href="{{route('course.catalogue.index')}}">QL nhóm hàng hóa</a></li>--}}
                 </ul>
             </li>
         </ul>
