@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\ForgotPasswordController;
+use App\Http\Controllers\Backend\ResetPasswordController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Mail\TestMail;
@@ -92,6 +94,12 @@ Route::get('logout',[AuthController::class,'logout'])->name('auth.logout');
 
 Route::get('create', [AuthController::class, 'showRegistrationForm'])->name('auth.create');
 Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+
+#PASSWORD
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 #EMAIL VERIFY
