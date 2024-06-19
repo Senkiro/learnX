@@ -6,7 +6,7 @@ use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ForgotPasswordController;
 use App\Http\Controllers\Backend\ResetPasswordController;
 use App\Http\Controllers\Backend\StudentController;
-use App\Http\Controllers\Backend\UserCatalogueController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Auth;
@@ -63,25 +63,25 @@ Route::group(['prefix'=>'user'],function (){
 
 #USER CATALOGUE ROUTE
 Route::group(['prefix'=>'user/catalogue'],function (){
-    Route::get('index',[UserCatalogueController::class,'index'])->name('user.catalogue.index')
+    Route::get('index',[RoleController::class,'index'])->name('user.catalogue.index')
         ->middleware('admin');
 
     #CREATE
-    Route::get('create',[UserCatalogueController::class,'create'])->name('user.catalogue.create')
+    Route::get('create',[RoleController::class,'create'])->name('user.catalogue.create')
         ->middleware('admin');
-    Route::post('store',[UserCatalogueController::class,'store'])->name('user.catalogue.store')
+    Route::post('store',[RoleController::class,'store'])->name('user.catalogue.store')
         ->middleware('admin');
 
     #UPDATE
-    Route::get('{id}/edit',[UserCatalogueController::class,'edit'])->where(['id'=>'[0-9]+'])->name('user.catalogue.edit')
+    Route::get('{id}/edit',[RoleController::class,'edit'])->where(['id'=>'[0-9]+'])->name('user.catalogue.edit')
         ->middleware('admin');
-    Route::post('{id}/update',[UserCatalogueController::class,'update'])->where(['id'=>'[0-9]+'])->name('user.catalogue.update')
+    Route::post('{id}/update',[RoleController::class,'update'])->where(['id'=>'[0-9]+'])->name('user.catalogue.update')
         ->middleware('admin');
 
     #DELETE
-    Route::get('{id}/delete',[UserCatalogueController::class,'delete'])->where(['id'=>'[0-9]+'])->name('user.catalogue.delete')
+    Route::get('{id}/delete',[RoleController::class,'delete'])->where(['id'=>'[0-9]+'])->name('user.catalogue.delete')
         ->middleware('admin');
-    Route::post('{id}/destroy',[UserCatalogueController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('user.catalogue.destroy')
+    Route::post('{id}/destroy',[RoleController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('user.catalogue.destroy')
         ->middleware('admin');
 
 });

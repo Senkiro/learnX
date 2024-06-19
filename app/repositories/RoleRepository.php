@@ -3,7 +3,7 @@
 namespace App\repositories;
 
 use App\Models\Role;
-use App\repositories\Interfaces\UserCatalogueRepositoryInterface;
+use App\repositories\Interfaces\RoleRepositoryInterface;
 
 
 
@@ -11,7 +11,7 @@ use App\repositories\Interfaces\UserCatalogueRepositoryInterface;
  * Class UserService
  * @package App\Services
  */
-class UserCatalogueRepository extends BaseRepository implements UserCatalogueRepositoryInterface
+class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 {
     protected $model;
 

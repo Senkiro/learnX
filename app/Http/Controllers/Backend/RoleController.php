@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use App\Http\Requests\StoreUserCatalogueRequest;
+use App\Http\Requests\StoreRoleRequest;
 use App\Http\Controllers\Controller;
-use App\repositories\UserCatalogueRepository;
+use App\repositories\RoleRepository;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class UserCatalogueController extends Controller
+class RoleController extends Controller
 {
 protected $userCatalogueRepository;
 protected $userCatalogueService;
     public function __construct(
         RoleService             $userCatalogueService,
-        UserCatalogueRepository $userCatalogueRepository
+        RoleRepository $userCatalogueRepository
     ){
         $this->userCatalogueService = $userCatalogueService;
         $this->userCatalogueRepository = $userCatalogueRepository;
@@ -59,7 +59,7 @@ protected $userCatalogueService;
         ));
     }
 
-    public function store(StoreUserCatalogueRequest $request)
+    public function store(StoreRoleRequest $request)
     {
 
         if($this -> userCatalogueService->create($request)){
@@ -85,7 +85,7 @@ protected $userCatalogueService;
         ));
     }
 
-    public function update($id,StoreUserCatalogueRequest $request)
+    public function update($id, StoreRoleRequest $request)
     {
         if($this -> userCatalogueService->update($id,$request)){
             return redirect()->route('user.catalogue.index')->with('success','Update thành công');

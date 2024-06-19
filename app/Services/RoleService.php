@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Services;
-use App\Repositories\UserCatalogueRepository;
+use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
-use App\Services\Interfaces\UserCatalogueServiceInterface;
+use App\Services\Interfaces\RoleServiceInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Log;
  * Class UserService
  * @package App\Services
  */
-class RoleService implements UserCatalogueServiceInterface
+class RoleService implements RoleServiceInterface
 {
     protected $userCatalogueRepository;
     protected $userRepository;
-    public function __construct(UserCatalogueRepository $userCatalogueRepositoryRepository, UserRepository $userRepository)
+    public function __construct(RoleRepository $userCatalogueRepositoryRepository, UserRepository $userRepository)
     {
         $this->userCatalogueRepository = $userCatalogueRepositoryRepository;
         $this->userRepository = $userRepository;
