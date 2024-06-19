@@ -40,7 +40,8 @@
             <li><a href="contact.html">Contact</a></li>
             <l1><a href="{{route('auth.logout')}}">
                     <i class="fa fa-sign-out"></i> Log out
-                </a></l1>
+                </a>
+            </l1>
         </ul>
         <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
         <button id="close-menu-btn"><i class="uil uil-multiply"></i></button>

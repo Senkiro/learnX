@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
  * Class UserService
  * @package App\Services
  */
-class UserCatalogueService implements UserCatalogueServiceInterface
+class RoleService implements UserCatalogueServiceInterface
 {
     protected $userCatalogueRepository;
     protected $userRepository;
@@ -93,6 +93,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         Log::info($post);
         try {
             $payload[$post['field']] = (($post['value'])==1 ? 2 : 1);
+            Log::info('Payload', $payload);
 
             $role = $this->userCatalogueRepository->update($post['modelId'],$payload);
 

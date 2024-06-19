@@ -38,8 +38,6 @@
                     'field': _this.attr('data-field'),
                     '_token': csrfToken,
                 }
-                console.log(option)
-                console.log('Before AJAX call');
                 $.ajax({
                     url: '/ajax/dashboard/changeStatus',
                     type: 'POST',
@@ -47,6 +45,7 @@
                     dataType: 'json',
 
                     success: function (res) {
+                        console.log(res)
                         let inputValue = ((option.value == 1 )?2:1)
                         if(res.flag==true){
                             _this.val(inputValue)
@@ -56,7 +55,6 @@
                         console.error('Error:', textStatus, errorThrown);
                     }
                 });
-                console.log('After AJAX call');
                 console.log(option)
                 e.preventDefault()
             })

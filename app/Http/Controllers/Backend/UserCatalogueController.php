@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Requests\StoreUserCatalogueRequest;
 use App\Http\Controllers\Controller;
 use App\repositories\UserCatalogueRepository;
-use App\Services\UserCatalogueService;
+use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +13,7 @@ class UserCatalogueController extends Controller
 protected $userCatalogueRepository;
 protected $userCatalogueService;
     public function __construct(
-        UserCatalogueService $userCatalogueService,
+        RoleService             $userCatalogueService,
         UserCatalogueRepository $userCatalogueRepository
     ){
         $this->userCatalogueService = $userCatalogueService;

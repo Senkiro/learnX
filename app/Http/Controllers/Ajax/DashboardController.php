@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 
 class DashboardController extends Controller
@@ -17,6 +18,7 @@ class DashboardController extends Controller
 
     public function changeStatus(Request $request){
         $post = $request->input();
+        Log::info('Request received', $post);
         $serviceInterfaceNamespace='\\App\\Services\\'.ucfirst($post['model']).'Service';
         if(class_exists($serviceInterfaceNamespace)){
             $serviceInterfaceInstance=app($serviceInterfaceNamespace);
