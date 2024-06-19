@@ -1,35 +1,13 @@
-@if($config['method']=='create')
-    @include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['create']['title']])
-@endif
+@include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['create']['title']])
 
-@if($config['method']=='edit')
-    @include('backend.dashboard.component.breadcrumb',['title' => $config['seo']['update']['title']])
-@endif
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@php
-    $url = ($config['method'] == 'create') ? route('user.catalogue.store') : route('user.catalogue.update',
-        $role->id);
-@endphp
-
-
-<form action="{{$url}}" method="post" class="box">
+<form action="{{route('user.catalogue.destroy',$userCatalogue->id)}}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-5">
                 <div class="panel-head">
-                    <div class="panel-title">Thông tin chung của nhóm thành viên</div>
-                    <div class="panel-description">Nhập thông tin chung của người sử dụng</div>
+                    <div class="panel-title">Thông tin chung</div>
+                    <div class="panel-description">Không thể khôi phục sau khi xóa</div>
                 </div>
             </div>
             <div class="col-lg-7">
@@ -38,43 +16,46 @@
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label class="control-label text-left">Tên nhóm
+                                    <label class="control-label text-left">Ten nhom
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input
                                         type="text"
                                         name="name"
-                                        value="{{old('name',($role->name) ?? '')}}"
+                                        value="{{old('email',($userCatalogue->name) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
-                                        autocomplete="off">
+                                        autocomplete="off"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label class="control-label text-left">Ghi chú
+                                    <label class="control-label text-left">Ghi chu
+                                        <span class="text-danger">(*)</span>
                                     </label>
                                     <input
                                         type="text"
                                         name="description"
-                                        value="{{old('description',($role->description) ?? '')}}"
+                                        value="{{old('name',($userCatalogue->description) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
-                                        autocomplete="off">
+                                        autocomplete="off"
+                                        readonly>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
-
         <div class="text-right mb15">
-            <button class="btn btn-primary" type="submit" name="send" value="send">Save</button>
+            <button class="btn btn-danger" type="submit" name="send" value="send">Delete</button>
         </div>
     </div>
 </form>
+
+
+
 
 

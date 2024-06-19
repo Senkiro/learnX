@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ForgotPasswordController;
 use App\Http\Controllers\Backend\ResetPasswordController;
+use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Mail\TestMail;
@@ -24,9 +25,16 @@ Route::get('/', function () {
 });
 
 #BACKEND ROUTE
+//Route::get('dashboard/index', function (){
+//    $user = Auth::user();
+//    $permissions = $user->getAllPermissions();
+////    dd($permissions);
+//})->name('dashboard.index')
+//    ->middleware(['auth','verified', 'permission:manage articles']);
 Route::get('dashboard/index',[DashboardController::class,'index'])->name('dashboard.index')
-    ->middleware(['auth','verified']);
+        ->middleware(['auth','verified','permission:manage articles']);
 
+Route::get('studentdashboard/index', [StudentController::class, 'index'])->name('student_dashboard.index');
 
 #USER ROUTE
 Route::group(['prefix'=>'user'],function (){
@@ -103,7 +111,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
-#EMAIL VERIFY
+#VERIFY EMAIL ROUTE
 Route::middleware('auth')->group(function () {
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])
         ->name('verification.notice');

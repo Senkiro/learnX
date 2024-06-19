@@ -2,7 +2,7 @@
 
 namespace App\repositories;
 
-use App\Models\UserCatalogue;
+use App\Models\Role;
 use App\repositories\Interfaces\UserCatalogueRepositoryInterface;
 
 
@@ -15,7 +15,7 @@ class UserCatalogueRepository extends BaseRepository implements UserCatalogueRep
 {
     protected $model;
 
-    public function __construct(UserCatalogue $model){
+    public function __construct(Role $model){
 
         $this->model = $model;
     }

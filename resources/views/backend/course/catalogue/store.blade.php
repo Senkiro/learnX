@@ -18,7 +18,7 @@
 
 @php
     $url = ($config['method'] == 'create') ? route('user.catalogue.store') : route('user.catalogue.update',
-        $role->id);
+        $userCatalogue->id);
 @endphp
 
 
@@ -44,7 +44,7 @@
                                     <input
                                         type="text"
                                         name="name"
-                                        value="{{old('name',($role->name) ?? '')}}"
+                                        value="{{old('name',($userCatalogue->name) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">
@@ -57,7 +57,7 @@
                                     <input
                                         type="text"
                                         name="description"
-                                        value="{{old('description',($role->description) ?? '')}}"
+                                        value="{{old('description',($userCatalogue->description) ?? '')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off">

@@ -32,7 +32,12 @@ class AuthController extends Controller
             Log::info('Email verified: ' . Auth::user()->hasVerifiedEmail());
 
             if (Auth::user()->hasVerifiedEmail()) {
-                return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công');
+                $user = Auth::user();
+                if ($user->hasRole('admin') || $user->hasRole('teacher')) {
+                    return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công');
+                } else {
+                    return redirect()->route('student_dashboard.index')->with('success', 'Đăng nhập thành công');
+                }
             } else {
                 Auth::logout();
                 return redirect()->route('auth.admin')->with('error', 'Vui lòng xác minh địa chỉ email của bạn trước khi đăng nhập.');
@@ -69,13 +74,11 @@ class AuthController extends Controller
                 'name' => $credentials['name'],
                 'email' => $credentials['email'],
                 'password' => Hash::make($credentials['password']),
-                'user_catalogue_id' => $credentials['user_catalogue_id'] ?? 2,
-            ]);
-
+                'role_id' => $credentials['role_id'] ?? 3,
+            ]);;
+            $user->assignRole('student');
             $user->generateVerificationToken();
             $user->sendEmailVerificationNotification();
-
-
 
             DB::commit();
 

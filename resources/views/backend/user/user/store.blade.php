@@ -65,24 +65,28 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                             </div>
                         </div>
                         @php
-                            $userCatalogue = [
-                                    '[Chọn nhóm thành viên]',
-                                    'Admin',
-                                    'User'
+                            $roles = [
+                                ['id' => 1, 'name' => 'Admin'],
+                                ['id' => 2, 'name' => 'Teacher'],
+                                ['id' => 3, 'name' => 'Student']
                             ];
                         @endphp
+
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label class="control-label text-left">Nhóm thành viên
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <select name="user_catalogue_id" id="" class="form-control setupSelect2">
-                                        @foreach($userCatalogue as $key => $item)
-                                            <option {{$key == old('user_catalogue_id',(isset
-                                            ($user->user_catalogue_id)) ?
-                                            $user->user_catalogue_id: '') ? 'selected' : ''}}
-                                            value="{{$key}}">{{$item}}</option>
+                                    <select name="role_id" id="" class="form-control setupSelect2">
+                                        <option value="0">[Chọn nhóm thành viên]</option>
+                                        @foreach($roles as $role)
+                                            <option
+                                                value="{{ $role['id'] }}"
+                                                {{ old('role_id', isset($user->role_id) ? $user->role_id : '') == $role['id'] ? 'selected' : '' }}
+                                            >
+                                                {{ $role['name'] }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>

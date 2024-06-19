@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\repositories\UserCatalogueRepository;
 use App\Services\UserCatalogueService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserCatalogueController extends Controller
 {
@@ -20,7 +21,7 @@ protected $userCatalogueService;
     }
     public function index(Request $request){
 
-        $userCatalogues = $this->userCatalogueService->paginate($request);
+        $roles = $this->userCatalogueService->paginate($request);
 
         $config= [
             'css' =>[
@@ -33,7 +34,7 @@ protected $userCatalogueService;
         $config['seo'] = config('apps.userCatalogue');
         $template = 'backend.user.catalogue.index';
         return view('backend.dashboard.layout', compact(
-            'template','config','userCatalogues'
+            'template','config','roles'
         ));
     }
 
@@ -60,6 +61,7 @@ protected $userCatalogueService;
 
     public function store(StoreUserCatalogueRequest $request)
     {
+
         if($this -> userCatalogueService->create($request)){
             return redirect()->route('user.catalogue.index')->with('success','Thêm mới thành công');
         }
@@ -67,7 +69,7 @@ protected $userCatalogueService;
     }
 
     public function edit($id){
-        $userCatalogue = $this->userCatalogueRepository->findById($id);
+        $role= $this->userCatalogueRepository->findById($id);
         $config=[
             'css' =>[
             ],
@@ -79,7 +81,7 @@ protected $userCatalogueService;
         $config['method']='edit';
         $template = 'backend.user.catalogue.store';
         return view('backend.dashboard.layout', compact(
-            'template','config','userCatalogue'
+            'template','config','role'
         ));
     }
 

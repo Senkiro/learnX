@@ -7,5 +7,12 @@ return [
         '1' => 'Un Active',
     ],
 
+    'role' => [
+        '0' => 'Chọn role',
+        '1' => 'Admin',
+        '2' => 'Teacher',
+        '3' => 'Student',
+    ]
+
 ];
 

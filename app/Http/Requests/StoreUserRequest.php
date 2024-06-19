@@ -19,7 +19,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|string|email|max:191|unique:users',
             'name' => 'required|string',
-            'user_catalogue_id' => 'required|integer|gt:0',
+            'role_id' => 'required|integer|gt:0',
             'password' => 'required|string| max:6',
             're_password' => 'required|string|same:password',
 //            'province_id' => 'required|integer|gt:0',
@@ -35,7 +35,7 @@ class StoreUserRequest extends FormRequest
             'email.unique' => 'Email đã tồn tại',
             'name.required' => 'Bạn chưa nhập Tên',
             'email.email' => 'Email chưa đúng định dạng',
-            'user_catalogue_id.gt' => 'Bạn chưa chọn nhóm thành viên',
+            'role_id.gt' => 'Bạn chưa chọn nhóm thành viên',
             'password.required' => 'Bạn chưa nhập Password',
             're_password.required' => 'Bạn chưa nhập lại Password',
             'password.max' => 'Mật khẩu chỉ có 6 số ',

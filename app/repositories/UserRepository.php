@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\District;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 
@@ -26,33 +25,47 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     }
 
     public function pagination(
-        array $column=['*'],
+        array $column=['users.*'],
         array $condition=[],
         array $join=[],
         array $extend = [],
         int $perpage = 20,
         array $relation = []
-
     ){
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                $query->where('name', 'LIKE', ''. $condition['keyword'] . '%')
-                    ->orWhere('email', 'LIKE', ''. $condition['keyword'] . '%')
-                    ->orWhere('phone', 'LIKE', ''. $condition['keyword'] . '%')
-                    ->orWhere('address', 'LIKE', ''. $condition['keyword'] . '%');
+                $query->where(function($query) use ($condition) {
+                    $query->where('users.name', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.email', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.phone', 'LIKE', '%' . $condition['keyword'] . '%')
+                        ->orWhere('users.address', 'LIKE', '%' . $condition['keyword'] . '%');
+                });
             }
 
-            if(isset($condition['publish'])  && $condition['publish'] != 0){
-                $query->where('publish','=', $condition['publish']);
+            if (isset($condition['publish']) && $condition['publish'] != 0) {
+                $query->where('users.publish', '=', $condition['publish']);
             }
+
+            if (isset($condition['role_id']) && $condition['role_id'] != 0) {
+                $query->where('users.role_id', '=', $condition['role_id']);
+            }
+
             return $query;
+        })->with($relation);
 
-        })->with('user_catalogues');
-        if (!empty($join)){
+        if (!empty($join)) {
             $query->join(...$join);
         }
-        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
+
+        $pagination = $query->paginate($perpage)->withQueryString();
+
+        if (isset($extend['path'])) {
+            $pagination->withPath(env('APP_URL') . $extend['path']);
+        }
+
+        return $pagination;
     }
+
 
 
 }

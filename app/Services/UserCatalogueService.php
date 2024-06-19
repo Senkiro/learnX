@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Services;
-
-use App\Models\User;
-
 use App\Repositories\UserCatalogueRepository;
 use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserCatalogueServiceInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UserService
@@ -92,10 +90,11 @@ class UserCatalogueService implements UserCatalogueServiceInterface
 
     public function updateStatus($post = []){
         DB::beginTransaction();
+        Log::info($post);
         try {
             $payload[$post['field']] = (($post['value'])==1 ? 2 : 1);
 
-            $userCatalogue = $this->userCatalogueRepository->update($post['modelId'],$payload);
+            $role = $this->userCatalogueRepository->update($post['modelId'],$payload);
 
             $this->changeUserStaus($post,$payload[$post['field']]);
 
@@ -106,7 +105,6 @@ class UserCatalogueService implements UserCatalogueServiceInterface
             echo $exception->getMessage();
             return false;
         }
-
     }
 
     public function updateStatusAll($post){
@@ -141,7 +139,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
 
             $payload[$post['field']] = $value;
 
-            $this->userRepository->updateByWhereIn('user_catalogue_id',$array,$payload);
+            $this->userRepository->updateByWhereIn('id',$array,$payload);
 
             DB::commit();
             return true;

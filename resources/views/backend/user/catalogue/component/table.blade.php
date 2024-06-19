@@ -12,28 +12,31 @@
     </tr>
     </thead>
     <tbody>
-    @if(isset($userCatalogues)&& is_object($userCatalogues))
-        @foreach($userCatalogues as $userCatalogue)
+
+    @if(isset($roles)&& is_object($roles))
+
+        @foreach($roles as $role)
             <tr>
                 <td>
-                    <input type="checkbox" id="userCheckbox" value="{{$userCatalogue->id}}" class="input-checkbox checkBoxItem">
+                    <input type="checkbox" id="userCheckbox" value="{{$role->id}}" class="input-checkbox checkBoxItem">
                 </td>
                 <td>
-                    {{$userCatalogue -> name}}
+
+                    {{$role -> name}}
                 </td>
                 <td>
-                    {{$userCatalogue->users_count}}
+                    {{$role->users_count}}
                 </td>
                 <td>
-                    {{$userCatalogue -> description}}
+                    {{$role -> description}}
                 </td>
-                <td class="text-center js-switch-{{$userCatalogue->id}}">
-                    <input type="checkbox" value="{{$userCatalogue->publish}}" class="js-switch status " data-field="publish"  data-model="UserCatalogue"
-                           {{($userCatalogue->publish==2) ? 'checked' : ''}} data-modelId="{{$userCatalogue->id}}"/>
+                <td class="text-center js-switch-{{$role->id}}">
+                    <input type="checkbox" value="{{$role->publish}}" class="js-switch status" data-field="publish" data-model="Role"
+                           {{($role->publish == 2) ? 'checked' : ''}} data-modelId="{{$role->id}}"/>
                 </td>
                 <td class="text-center">
-                    <a href="{{route('user.catalogue.edit',$userCatalogue->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                    <a href="{{route('user.catalogue.delete',$userCatalogue->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <a href="{{route('user.catalogue.edit',$role->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                    <a href="{{route('user.catalogue.delete',$role->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         @endforeach
@@ -41,4 +44,4 @@
     </tbody>
 </table>
 
- {{ $userCatalogues->links('pagination::bootstrap-4') }}
+ {{ $roles->links('pagination::bootstrap-4') }}

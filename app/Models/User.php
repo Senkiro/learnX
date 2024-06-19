@@ -10,10 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes,HasRoles;
 
     protected $fillable = [
         'name',
@@ -29,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'description',
         'user_agent',
         'ip',
-        'user_catalogue_id',
+        'role_id',
         'publish',
         'verification_token'
     ];
@@ -44,9 +46,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
-    public function user_catalogues()
+    public function role()
     {
-        return $this->belongsTo(UserCatalogue::class, 'user_catalogue_id', 'id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     public function carts()

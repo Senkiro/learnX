@@ -14,26 +14,29 @@
     </tr>
     </thead>
     <tbody>
-    @if(isset($users) && is_object($users))
+    @if(isset($users) && $users->count())
         @foreach($users as $user)
             <tr>
+{{--                @php--}}
+{{--                dd($user->role->name)--}}
+{{--                @endphp--}}
                 <td>
                     <input type="checkbox" id="userCheckbox" value="{{$user->id}}" class="input-checkbox checkBoxItem">
                 </td>
                 <td>
-                    {{$user->name}}
+                    {{$user->name ?? 'N/A'}}
                 </td>
                 <td>
-                    {{$user->email}}
+                    {{$user->email ?? 'N/A'}}
                 </td>
                 <td>
-                    {{$user->phone}}
+                    {{$user->phone ?? 'N/A'}}
                 </td>
                 <td>
-                    {{$user->address}}
+                    {{$user->address ?? 'N/A'}}
                 </td>
                 <td>
-                    {{ isset($user->user_catalogues) ? $user->user_catalogues->name : ''}}
+                    {{$user->role->name ?? 'N/A'}}
                 </td>
                 <td class="text-center js-switch-{{$user->id}}">
                     <input type="checkbox" value="{{$user->publish}}" class="js-switch status" data-field="publish" data-model="User"
@@ -45,6 +48,10 @@
                 </td>
             </tr>
         @endforeach
+    @else
+        <tr>
+            <td colspan="8" class="text-center">No users found</td>
+        </tr>
     @endif
     </tbody>
 </table>
