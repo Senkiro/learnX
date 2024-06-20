@@ -18,7 +18,7 @@
         @foreach($users as $user)
             <tr>
 {{--                @php--}}
-{{--                dd($user->role->name)--}}
+{{--                dd($user->role)--}}
 {{--                @endphp--}}
                 <td>
                     <input type="checkbox" id="userCheckbox" value="{{$user->id}}" class="input-checkbox checkBoxItem">

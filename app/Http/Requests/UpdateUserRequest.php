@@ -18,8 +18,8 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'email' => 'required|string|email|unique:users,email,'.$this->id.'|max:191',
-            'name' => 'required|string',
-            'role_id' => 'required|integer|gt:0',
+            'role_ids' => 'required|array',
+            'role_ids.*' => 'exists:roles,id',
 
         ];
     }
@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             'email.unique' => 'Email đã tồn tại',
             'name.required' => 'Bạn chưa nhập Tên',
             'email.email' => 'Email chưa đúng định dạng',
-            'role_id.gt' => 'Bạn chưa chọn nhóm thành viên',
+            'role_ids.gt' => 'Bạn chưa chọn nhóm thành viên',
         ];
     }
 }

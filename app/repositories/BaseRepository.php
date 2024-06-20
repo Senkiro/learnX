@@ -74,7 +74,10 @@ class BaseRepository implements BaseRepositoryInterface
     )
     {
         $model = $this->findById($id);
-        return $model->update($payload);
+        if ($model && $model->update($payload)) {
+            return $model;
+        }
+        return false;
     }
 
     public function updateByWhereIn(String $whereInField = '',array $whereIn = [],array $payload = []){

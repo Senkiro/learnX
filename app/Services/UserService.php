@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Models\User;
 
 use App\Repositories\UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UserService
@@ -76,10 +78,23 @@ class UserService implements UserServiceInterface
             $payload  = $request->except(['_token','send']);
             $payload['birthday'] = $this->converBirthdayDate($payload['birthday']);
 
-//            dd($payload);
             $user = $this->userRepository->update($id,$payload);
 //            dd($user);
 
+            if (!$user) {
+                throw new \Exception('User not found or update failed.');
+            }
+            $roleIds = $request->input('role_ids', []);
+
+            $roleNames = Role::whereIn('id', $roleIds)->pluck('name')->toArray();
+//            dd($roleNames);
+            $user->syncRoles($roleNames);
+
+            if (!empty($roleIds)) {
+                $primaryRoleId = $roleIds[0];
+                $user->role_id = $primaryRoleId;
+                $user->save();
+            }
             DB::commit();
             return true;
         }catch (\Exception $exception){
@@ -142,4 +157,6 @@ class UserService implements UserServiceInterface
         }
 
     }
+
+
 }
