@@ -23,7 +23,7 @@ class RoleRedirectMiddleware
 
             if ($user->hasRole(['admin', 'teacher'])) {
                 return $next($request);
-            } else if ($user->hasRole(['student'])){
+            } else if ($user->hasRole(['course'])){
                 return redirect()->route('student_dashboard.index');
             }
         }

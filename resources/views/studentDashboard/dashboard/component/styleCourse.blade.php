@@ -1,106 +1,212 @@
+<style>
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+text-decoration: none;
+list-style: none;
+box-sizing: border-box;
 }
 
 :root {
-    --color-primary: #6c6cff;
-    --color-success: #00bf8e;
-    --color-warning: #f7c94b;
-    --color-danger: #f75842;
-    --color-danger-variant: rgba(247, 88, 66, 0.4);
-    --color-white: #fff;
-    --color-light: rgba(255, 255, 255, 0.7);
-    --color-black: #000;
-    --color-bg: #1f2651;
-    --color-bg1: #2e3267;
-    --color-bg2: #424890;
+--color-primary: #6c6cff;
+--color-success: #00bf8e;
+--color-warning: #f7c94b;
+--color-danger: #f75842;
+--color-danger-variant: rgba(247, 88, 66, 0.4);
+--color-white: #fff;
+--color-light: rgba(255, 255, 255, 0.7);
+--color-black: #000;
+--color-bg: #1f2651;
+--color-bg1: #2e3267;
+--color-bg2: #424890;
 
-    --container-width-lg: 76%;
-    --container-width-md: 90%;
-    --container-width-sm: 94%;
+--container-width-lg: 76%;
+--container-width-md: 90%;
+--container-width-sm: 94%;
 
-    --transition: all 400ms ease;
-
+--transition: all 400ms ease;
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.7;
-    color: var(--color-white);
-    background-color: var(--color-bg);
+font-family: 'Montserrat', sans-serif;
+line-height: 1.7;
+color: var(--color-white);
+background-color: var(--color-bg);
 }
 
 .container {
-    width: var(--container-width-lg);
-    margin: 0 auto;
+width: var(--container-width-lg);
+margin: 0 auto;
 }
 
 section {
-    padding: 6rem 0;
+padding: 6rem 0;
 }
 
 section h2 {
-    text-align: center;
-    margin-bottom: 4rem;
+text-align: center;
+margin-bottom: 4rem;
 }
 
 h1, h2, h3, h4, h5 {
-    line-height: 1.2;
+line-height: 1.2;
 }
 
 h1 {
-    font-size: 2.4rem;
+font-size: 2.4rem;
 }
 
 h2 {
-    font-size: 2.4rem;
+font-size: 2.4rem;
 }
 
 h3 {
-    font-size: 1.6rem;
+font-size: 1.6rem;
 }
 
 h4 {
-    font-size: 1.3rem;
+font-size: 1.3rem;
 }
 
 a {
-    color: var(--container-width-sm);
+color: var(--container-width-sm);
 }
 
 img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
+width: 100%;
+display: block;
+object-fit: cover;
 }
 
 .btn {
-    display: inline-block;
-    background-color: var(--color-white);
-    color: var(--color-black);
-    padding: 1rem 2rem;
-    border: 1px solid transparent;
-    font-weight: 500;
-    transition: var(--transition);
+display: inline-block;
+background-color: var(--color-white);
+color: var(--color-black);
+padding: 1rem 2rem;
+border: 1px solid transparent;
+font-weight: 500;
+transition: var(--transition);
 }
 
-.btm:hover {
-    background: transparent;
-    color: var(--color-white);
-    border-color: var(--color-white);
+.btn:hover {
+background: transparent;
+color: var(--color-white);
+border-color: var(--color-white);
 }
 
 .btn-primary {
-    background-color: var(--color-danger);
-    color: var(--color-white);
+background-color: var(--color-danger);
+color: var(--color-white);
 }
 
+/* ======================== COURSES ========================= */
+.courses__container {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 2rem;
+}
+
+.course {
+background: var(--color-bg1);
+text-align: center;
+border: 1px solid transparent;
+transition: var(--transition);
+padding: 1rem;
+}
+
+.course:hover {
+background: transparent;
+border-color: var(--color-primary);
+}
+
+.course__info {
+padding: 1rem 0;
+}
+
+.course__info h4 {
+margin: 1rem 0;
+}
+
+/* ======================== PAGINATION ========================= */
+.pagination-container {
+text-align: center;
+margin-top: 2rem;
+}
+
+.pagination {
+display: inline-block;
+padding: 0;
+margin: 0;
+list-style: none;
+}
+
+.pagination .page-item {
+display: inline;
+}
+
+.pagination .page-link {
+color: var(--color-primary);
+float: left;
+padding: 8px 16px;
+text-decoration: none;
+transition: background-color .3s;
+}
+
+.pagination .page-link:hover {
+background-color: var(--color-bg2);
+color: var(--color-white);
+}
+
+/* ======================== MEDIA QUERIES ========================= */
+@media screen and (max-width: 1024px) {
+.container {
+width: var(--container-width-md);
+}
+
+h1 {
+font-size: 2.2rem;
+}
+
+h2 {
+font-size: 1.7rem;
+}
+
+h3 {
+font-size: 1.4rem;
+}
+
+h4 {
+font-size: 1.2rem;
+}
+
+.courses__container {
+grid-template-columns: 1fr 1fr;
+}
+}
+
+@media screen and (max-width: 600px) {
+.container {
+width: var(--container-width-sm);
+}
+
+.courses__container {
+grid-template-columns: 1fr;
+}
+
+.course {
+padding: 0.5rem;
+}
+
+.course__info h4 {
+font-size: 1rem;
+}
+
+.pagination .page-link {
+padding: 4px 8px;
+}
+}
 /* ======================== NAVBAR ========================= */
 
 nav {
@@ -447,7 +553,7 @@ footer ul li a:hover{
         opacity: 0;
     }
 
-    
+
     .nav__menu li:nth-child(2){
         animation-delay: 200ms ;
     }
@@ -469,7 +575,7 @@ footer ul li a:hover{
             transform: rotateZ(0) rotateX(0) scale(1);
             opacity: 1;
         }
-        
+
     }
 
     .nav__menu li a{
@@ -527,7 +633,7 @@ footer ul li a:hover{
     .faq{
         padding: 1.5rem;
     }
-    
+
     /* ====================== FOOTER ========================= */
     .footer__container{
         grid-template-columns: 1fr 1fr;
@@ -603,3 +709,17 @@ footer ul li a:hover{
         justify-content: center;
     }
 }
+
+.courses{
+    margin-top: 1rem ;
+}
+
+.pagination-container {
+    margin-top: 80px; /* Adjust this value based on your navbar height */
+    clear: both;
+    text-align: center;
+    z-index: 1; /* Ensure pagination is below the navbar */
+    position: relative; /* Make sure it doesn't interfere with other fixed elements */
+}
+
+</style>

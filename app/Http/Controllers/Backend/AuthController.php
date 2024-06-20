@@ -99,7 +99,11 @@ class AuthController extends Controller
 //        Auth::check()
         Auth::login($user);
 
-        return redirect()->route('dashboard.index')->with('success', 'Your email has been verified!');
+        if ($user->hasRole('admin') || $user->hasRole('teacher')) {
+            return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công');
+        } else {
+            return redirect()->route('student_dashboard.index')->with('success', 'Đăng nhập thành công');
+        }
     }
 
 
