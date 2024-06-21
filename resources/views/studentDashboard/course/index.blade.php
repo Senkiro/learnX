@@ -1,6 +1,6 @@
-{{--@include('studentDashboard.course.component.filter')--}}
-
 <h2 class="text-center mt-4">Our Popular Courses</h2>
+
+@include('studentDashboard.course.component.filter')
 
 <div class="container courses__container mt-4">
     @foreach($courses as $course)
@@ -24,6 +24,6 @@
     @endforeach
 </div>
 
-{{--<div class="pagination">--}}
-{{--    {{ $courses->links('pagination::bootstrap-4') }}--}}
-{{--</div>--}}
+<div class="pagination">
+    {{ $courses->links('pagination::bootstrap-4') }}
+</div>

@@ -19,10 +19,10 @@
                     placeholder="Nhập từ khóa"
                     class="form-control">
                 <span class="input-group-btn">
-                    <button type="submit" name="search" value="search"
-                            class="btn btn-primary mb0 btn-sm"> Tìm kiếm
-                    </button>
-                </span>
+                            <button type="submit" name="search" value="search"
+                                    class="btn btn-primary mb0 btn-sm"> Tìm kiếm
+                            </button>
+                        </span>
             </div>
         </div>
     </div>

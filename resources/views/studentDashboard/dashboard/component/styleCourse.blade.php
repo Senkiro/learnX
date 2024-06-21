@@ -34,6 +34,7 @@ font-family: 'Montserrat', sans-serif;
 line-height: 1.7;
 color: var(--color-white);
 background-color: var(--color-bg);
+    padding-top: 0;
 }
 
 .container {
@@ -213,9 +214,10 @@ nav {
     background-color: transparent;
     width: 100vw;
     height: 5rem;
-    position: fixed;
+    position: sticky;
     top: 0;
     z-index: 11;
+    padding-top: 0;
 }
 
 /* change navbar styles on scroll using javascript */
@@ -714,12 +716,73 @@ footer ul li a:hover{
     margin-top: 1rem ;
 }
 
-.pagination-container {
-    margin-top: 80px; /* Adjust this value based on your navbar height */
-    clear: both;
-    text-align: center;
-    z-index: 1; /* Ensure pagination is below the navbar */
-    position: relative; /* Make sure it doesn't interfere with other fixed elements */
+/* Filter Wrapper */
+.filter-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
+    justify-content: flex-end; /* Align to the right */
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem; /* Adjust margin to ensure proper spacing */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for better appearance */
+    background-color: transparent; /* Remove white background */
 }
 
+/* Perpage Dropdown */
+.perpage {
+    margin-right: 1rem;
+}
+
+.perpage .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    height: calc(1.5em + .75rem + 2px); /* Adjust height to match Bootstrap form control */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Action Group */
+.action {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to the right */
+    flex-grow: 1;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    width: auto; /* Adjust width as needed */
+}
+
+.input-group .form-control {
+    height: calc(1.5em + .75rem + 2px); /* Adjust height to match Bootstrap form control */
+    border-radius: 5px 0 0 5px; /* Rounded corners for the input */
+    flex: 1; /* Allow flexibility */
+    margin-right: 0.5rem; /* Space between input and button */
+}
+
+.input-group .input-group-btn .btn {
+    height: calc(1.5em + .75rem + 2px); /* Adjust height to match Bootstrap button */
+    line-height: 1.5; /* Ensure text is vertically centered */
+    border-radius: 5px; /* Rounded corners for the button */
+    background-color: #28a745; /* Button color */
+    color: #fff; /* Button text color */
+    border: none; /* Remove border */
+    padding: 0 1rem; /* Add padding for better click area */
+}
+
+
+/* Center the pagination */
+.pagination {
+    display: flex;
+    justify-content: center; /* Center the pagination items */
+    margin-top: 1rem; /* Adjust the margin as needed */
+}
+
+.pagination li {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
 </style>
