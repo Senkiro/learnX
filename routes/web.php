@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\CartController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\ForgotPasswordController;
 use App\Http\Controllers\Backend\ResetPasswordController;
 use App\Http\Controllers\Backend\StudentController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\VNPayController;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -145,5 +147,16 @@ Route::group(['prefix'=>'course'],function (){
     Route::post('{id}/destroy',[CourseController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('course.destroy')
         ->middleware('admin');
 
+#CART
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+
+#VNPAY
+    Route::post('/course/create_payment', [VNPayController::class, 'createPayment'])->name('payment.create');
+    Route::get('/payment/vnpay_return', [VNPayController::class, 'vnpayReturn'])->name('payment.vnpay_return');
 });
+
 

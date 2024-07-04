@@ -785,4 +785,62 @@ footer ul li a:hover{
     display: inline-block;
     margin-right: 0.5rem;
 }
+
+
+.cart-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.cart-header, .cart-footer {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+}
+
+.cart-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+}
+
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+}
+
+.cart-dropdown.active {
+    display: block;
+}
+
+
 </style>

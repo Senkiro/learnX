@@ -14,7 +14,9 @@ class CourseController extends Controller
     protected $courseService;
     protected $courseRepository;
 
-    public function __construct(CourseService $courseService, CourseRepository $courseRepository)
+    public function __construct(
+        CourseService $courseService,
+        CourseRepository $courseRepository)
     {
         $this->courseService = $courseService;
         $this->courseRepository = $courseRepository;

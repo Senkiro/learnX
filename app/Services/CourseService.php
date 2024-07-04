@@ -5,6 +5,7 @@ namespace App\Services;
 use App\repositories\CourseRepository;
 use App\Services\Interfaces\CourseServiceInterface;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UserService
@@ -99,8 +100,8 @@ class CourseService implements CourseServiceInterface
         try {
             $payload[$post['field']] = (($post['value'])==1 ? 2 : 1);
 
-            $user = $this->courseRepository->update($post['modelId'],$payload);
-
+            $course = $this->courseRepository->update($post['modelId'],$payload);
+            Log::info($course);
             DB::commit();
             return true;
         }catch (\Exception $exception){

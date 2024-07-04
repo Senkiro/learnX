@@ -50,7 +50,7 @@ class StudentRepository extends BaseRepository implements UserRepositoryInterfac
         if (!empty($join)){
             $query->join(...$join);
         }
-        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
+        return $query->paginate($perpage)->withQueryString();
     }
 
 }

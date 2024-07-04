@@ -10,12 +10,9 @@ class Course extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'title',
-        'description',
-        'price',
-        'image',
-    ];
+    protected $fillable = ['title', 'description', 'price', 'image','publish'];
+
+    protected $table = 'courses';
 
     public function carts()
     {

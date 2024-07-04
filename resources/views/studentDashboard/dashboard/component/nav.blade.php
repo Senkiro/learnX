@@ -6,11 +6,13 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="courses.html">Courses</a></li>
+        <li><a href="courses.html">My Courses</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <l1><a href="{{route('auth.logout')}}">
+        <li><a href="{{route('cart.index')}}">Cart</a></li>
+        <li><a href="{{ route('auth.logout') }}">
                 <i class="fa fa-sign-out"></i> Log out
             </a>
-        </l1>
+        </li>
     </ul>
     <button id="open-menu-btn"><i class="uil uil-bars"></i></button>
     <button id="close-menu-btn"><i class="uil uil-multiply"></i></button>
