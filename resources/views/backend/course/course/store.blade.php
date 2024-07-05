@@ -93,7 +93,8 @@
                                         placeholder=""
                                         autocomplete="off">
                                     @if(isset($course) && $course->image)
-                                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" width="100">
+                                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}"
+                                             width="100">
                                     @endif
                                 </div>
                             </div>

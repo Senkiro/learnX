@@ -39,7 +39,7 @@
                 <div id="tab-1" class="tab-pane active">
 
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
+                        <h3><i class="fa fa-comments-o"></i> Latest Notes</h3>
                         <small><i class="fa fa-tim"></i> You have 10 new message.</small>
                     </div>
 
@@ -87,7 +87,8 @@
                                     </div>
                                 </div>
                                 <div class="media-body">
-                                    Mevolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                    Mevolved over the years, sometimes by accident, sometimes on purpose (injected
+                                    humour and the like).
                                     <br>
                                     <small class="text-muted">Yesterday 1:10 pm</small>
                                 </div>
@@ -125,7 +126,8 @@
                                     <img alt="image" class="img-circle message-avatar" src="img/a7.jpg">
                                 </div>
                                 <div class="media-body">
-                                    Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                    Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
+                                    from a line in section 1.10.32.
                                     <br>
                                     <small class="text-muted">Yesterday 2:45 pm</small>
                                 </div>
@@ -168,7 +170,7 @@
                 <div id="tab-2" class="tab-pane">
 
                     <div class="sidebar-title">
-                        <h3> <i class="fa fa-cube"></i> Latest projects</h3>
+                        <h3><i class="fa fa-cube"></i> Latest projects</h3>
                         <small><i class="fa fa-tim"></i> You have 14 projects. 10 not completed.</small>
                     </div>
 
@@ -299,7 +301,8 @@
                     </span>
                         <div class="switch">
                             <div class="onoffswitch">
-                                <input type="checkbox" name="collapsemenu" checked class="onoffswitch-checkbox" id="example2">
+                                <input type="checkbox" name="collapsemenu" checked class="onoffswitch-checkbox"
+                                       id="example2">
                                 <label class="onoffswitch-label" for="example2">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
@@ -341,7 +344,8 @@
                     </span>
                         <div class="switch">
                             <div class="onoffswitch">
-                                <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox" id="example5">
+                                <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox"
+                                       id="example5">
                                 <label class="onoffswitch-label" for="example5">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
@@ -355,7 +359,8 @@
                     </span>
                         <div class="switch">
                             <div class="onoffswitch">
-                                <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox" id="example6">
+                                <input type="checkbox" checked name="collapsemenu" class="onoffswitch-checkbox"
+                                       id="example6">
                                 <label class="onoffswitch-label" for="example6">
                                     <span class="onoffswitch-inner"></span>
                                     <span class="onoffswitch-switch"></span>
@@ -382,7 +387,8 @@
                         <h4>Settings</h4>
                         <div class="small">
                             I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                            And typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                            And typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
+                            the 1500s.
                             Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                         </div>
                     </div>
@@ -391,7 +397,6 @@
             </div>
 
         </div>
-
 
 
     </div>

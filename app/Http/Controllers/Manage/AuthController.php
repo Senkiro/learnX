@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
@@ -33,6 +33,7 @@ class AuthController extends Controller
 
             if (Auth::user()->hasVerifiedEmail()) {
                 $user = Auth::user();
+//                dd($user);
                 if ($user->hasRole('admin') || $user->hasRole('teacher')) {
                     return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công');
                 } else {

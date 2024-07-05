@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Manage;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Controllers\Controller;
 use App\repositories\RoleRepository;

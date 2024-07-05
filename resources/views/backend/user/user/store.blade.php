@@ -17,8 +17,8 @@
 @endif
 
 @php
-$url = ($config['method'] == 'create') ? route('user.store') : route('user.update',
-    $user->id);
+    $url = ($config['method'] == 'create') ? route('user.store') : route('user.update',
+        $user->id);
 @endphp
 
 <form action="{{$url}}" method="post" class="box">
@@ -104,36 +104,36 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                             </div>
                         </div>
                         @if($config['method']=='create')
-                        <div class="row mb15">
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label class="control-label text-left">Mật khẩu
-                                        <span class="text-danger">(*)</span>
-                                    </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off">
+                            <div class="row mb15">
+                                <div class="col-lg-6">
+                                    <div class="form-row">
+                                        <label class="control-label text-left">Mật khẩu
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            value=""
+                                            class="form-control"
+                                            placeholder=""
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-row">
+                                        <label class="control-label text-left">Nhập lại mật khẩu
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="re_password"
+                                            value=""
+                                            class="form-control"
+                                            placeholder=""
+                                            autocomplete="off">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label class="control-label text-left">Nhập lại mật khẩu
-                                        <span class="text-danger">(*)</span>
-                                    </label>
-                                    <input
-                                        type="password"
-                                        name="re_password"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off">
-                                </div>
-                            </div>
-                        </div>
                         @endif
                         <div class="row mb15">
                             <div class="col-lg-12">
@@ -174,7 +174,8 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                                 <div class="form-row">
                                     <label class="control-label text-left">Thành phố
                                     </label>
-                                    <select name="province_id" id="" class="form-control setupSelect2 province location" data-target="districts">
+                                    <select name="province_id" id="" class="form-control setupSelect2 province location"
+                                            data-target="districts">
                                         <option value="0">[Chọn thành phố]</option>
                                         @if(isset($provinces))
                                             @foreach($provinces as $province)
@@ -190,13 +191,14 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                                 <div class="form-row">
                                     <label class="control-label text-left">Quận/Huyện
                                     </label>
-                                    <select name="district_id" id="" class="form-control districts setupSelect2 location" data-target="wards">
+                                    <select name="district_id" id=""
+                                            class="form-control districts setupSelect2 location" data-target="wards">
                                         <option value="0">[Chọn Quận/huyện]</option>
                                     </select>
 
                                 </div>
                             </div>
-                    </div>
+                        </div>
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
@@ -251,10 +253,10 @@ $url = ($config['method'] == 'create') ? route('user.store') : route('user.updat
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
         <div class="text-right mb15">
             <button class="btn btn-primary" type="submit" name="send" value="send">Save</button>
         </div>

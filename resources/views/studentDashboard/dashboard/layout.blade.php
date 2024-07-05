@@ -3,8 +3,8 @@
 
 <head>
     @include('studentDashboard.dashboard.component.head')
+    @include('studentDashboard.dashboard.component.styleCourse')
 </head>
-@include('studentDashboard.dashboard.component.styleCourse')
 <body>
 
 <!-- ============ BEGIN NAVBAR =============-->

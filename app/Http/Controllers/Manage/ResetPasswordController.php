@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

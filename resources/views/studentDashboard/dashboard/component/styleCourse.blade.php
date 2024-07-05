@@ -842,5 +842,60 @@ footer ul li a:hover{
     display: block;
 }
 
+.course {
+    margin-bottom: 20px;
+}
+.cart-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+.cart-container.active {
+    transform: translateX(0);
+}
+.cart-header, .cart-item, .cart-footer {
+    padding: 10px;
+}
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cart-item img {
+    width: 50px;
+    height: 50px;
+}
+.cart-footer {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.checkout-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.description {
+    position: relative;
+}
+.description .more-text {
+    display: none;
+}
+
 
 </style>

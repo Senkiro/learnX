@@ -1,20 +1,23 @@
 <?php
 
 use App\Http\Controllers\Ajax\LocationController;
-use App\Http\Controllers\Backend\AuthController;
-use App\Http\Controllers\Backend\CartController;
-use App\Http\Controllers\Backend\CourseController;
-use App\Http\Controllers\Backend\ForgotPasswordController;
-use App\Http\Controllers\Backend\ResetPasswordController;
-use App\Http\Controllers\Backend\StudentController;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\Backend\VNPayController;
+use App\Http\Controllers\Manage\AuthController;
+use App\Http\Controllers\PayPalController;
+use App\Http\Controllers\Student\BalanceController;
+use App\Http\Controllers\Student\CartController;
+use App\Http\Controllers\Manage\CourseController;
+use App\Http\Controllers\Manage\ForgotPasswordController;
+use App\Http\Controllers\Manage\ResetPasswordController;
+use App\Http\Controllers\Student\MyCourseController;
+use App\Http\Controllers\Student\StudentDashboardController;
+use App\Http\Controllers\Manage\RoleController;
+use App\Http\Controllers\Manage\UserController;
+use App\Http\Controllers\Student\VNPayController;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\Backend\DashboardController;
+use \App\Http\Controllers\Manage\DashboardController;
 use \App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use \App\Http\Middleware\AuthenticateMiddleware;
 use \App\Http\Middleware\LoginMiddeware;
@@ -36,7 +39,7 @@ Route::get('/', function () {
 Route::get('dashboard/index',[DashboardController::class,'index'])->name('dashboard.index')
         ->middleware(['auth','verified','permission:manage articles']);
 
-Route::get('studentdashboard/index', [StudentController::class, 'index'])->name('student_dashboard.index');
+Route::get('studentdashboard/index', [StudentDashboardController::class, 'index'])->name('student_dashboard.index');
 
 #USER ROUTE
 Route::group(['prefix'=>'user'],function (){
@@ -147,6 +150,8 @@ Route::group(['prefix'=>'course'],function (){
     Route::post('{id}/destroy',[CourseController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('course.destroy')
         ->middleware('admin');
 
+#=====================================================STUDENT ROUTE =====================================================
+
 #CART
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
@@ -155,8 +160,20 @@ Route::group(['prefix'=>'course'],function (){
 
 
 #VNPAY
-    Route::post('/course/create_payment', [VNPayController::class, 'createPayment'])->name('payment.create');
+    Route::post('/vnpay_payment', [VNPayController::class, 'vnpay_payment'])->name('payment.create');
     Route::get('/payment/vnpay_return', [VNPayController::class, 'vnpayReturn'])->name('payment.vnpay_return');
 });
+
+#MY COURSE
+    Route::get('myCourse/index', [MyCourseController::class, 'index'])->name('myCourse.index');
+
+Route::get('/add-funds', [BalanceController::class, 'index'])->name('add.funds.form');
+
+Route::post('/add-funds', [BalanceController::class, 'addFunds'])->name('add.funds');
+
+
+
+
+
 
 

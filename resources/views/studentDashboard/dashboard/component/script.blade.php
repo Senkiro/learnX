@@ -1,4 +1,27 @@
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const readMoreLinks = document.querySelectorAll('.read-more');
+        readMoreLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const description = link.closest('.description');
+                const shortText = description.querySelector('.short-text');
+                const moreText = description.querySelector('.more-text');
+
+                if (moreText.style.display === 'none' || moreText.style.display === '') {
+                    moreText.style.display = 'inline';
+                    shortText.style.display = 'none';
+                    link.textContent = 'Read less';
+                } else {
+                    moreText.style.display = 'none';
+                    shortText.style.display = 'inline';
+                    link.textContent = 'Read more';
+                }
+            });
+        });
+
+    });
+
     //change navbar styles on scroll
 
     window.addEventListener('scroll', () =>{
@@ -44,4 +67,6 @@
 
     closeBTN.addEventListener('click', closeNav)
 
+
 </script>
+

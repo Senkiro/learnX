@@ -21,7 +21,7 @@
                     <input type="checkbox" id="userCheckbox" value="{{$course->id}}" class="input-checkbox checkBoxItem">
                 </td>
                 <td>{{ $course->title }}</td>
-                <td>{{ $course->description }}</td>
+                <td>{{\Illuminate\Support\Str::limit($course->description, 50) }}</td>
                 <td>{{ number_format($course->price, 2) }} $</td>
 
                 <td>

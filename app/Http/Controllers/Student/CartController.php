@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
@@ -21,12 +21,15 @@ class CartController extends Controller
         $total = $cartItems->sum(function ($item) {
             return $item->total_price;
         });
-
-        return view('studentDashboard.cart.index', compact('cartItems', 'balance', 'total'));
+        $template = 'studentDashboard.cart.index';
+        return view('studentDashboard.dashboard.layout', compact(
+            'cartItems', 'balance', 'total','template'));
     }
 
     public function addToCart(Request $request, $id)
     {
+
+
         $course = Course::find($id);
 
         if (!$course) {
@@ -34,6 +37,11 @@ class CartController extends Controller
         }
 
         $userId = Auth::id();
+//        dd($userId);
+//        if($userId == 'null'){
+//            return redirect()->route('auth.admin')->with('error','user need login to do this action');
+//        }
+
         $cart = Cart::where('user_id', $userId)->where('course_id', $id)->where('status', 'pending')->first();
 
         if (!$cart) {
@@ -66,14 +74,15 @@ class CartController extends Controller
             $userBalance->balance -= $totalAmount;
             $userBalance->save();
 
-            Cart::where('user_id', $userId)->where('status', 'pending')->update(['status' => 'paid']);
+            Cart::where('user_id', $userId)
+                ->where('status', 'pending')
+                ->update(['status' => 'paid', 'total_price' => $totalAmount]);
 
             return redirect()->route('student_dashboard.index')->with('success', 'Payment successful! Your courses have been purchased.');
         } else if ($userBalance && $userBalance->balance < $totalAmount) {
-            return redirect()->route('student_dashboard.index')->with('error', 'Your balance is not enough!');
+            return redirect()->route('cart.index')->with('error', 'Your balance is not enough!');
         }
         return redirect()->route('student_dashboard.index')->with('error', 'Insufficient balance to complete the purchase.');
     }
-
 
 }
