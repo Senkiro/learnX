@@ -28,8 +28,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request, $id)
     {
-
-
         $course = Course::find($id);
 
         if (!$course) {
@@ -37,10 +35,6 @@ class CartController extends Controller
         }
 
         $userId = Auth::id();
-//        dd($userId);
-//        if($userId == 'null'){
-//            return redirect()->route('auth.admin')->with('error','user need login to do this action');
-//        }
 
         $cart = Cart::where('user_id', $userId)->where('course_id', $id)->where('status', 'pending')->first();
 

@@ -68,9 +68,11 @@ class VNPayController extends Controller
 
     $vnp_Url = $vnp_Url . "?" . $query;
     if (isset($vnp_HashSecret)) {
-        $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
+        $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);
         $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+
     }
+
     $returnData = array('code' => '00'
     , 'message' => 'success'
     , 'data' => $vnp_Url);
@@ -91,30 +93,39 @@ class VNPayController extends Controller
         $vnp_HashSecret = "M5QPBZZ5Y9S19FC5L8ZWELB24QVAKEH6";
         $vnp_SecureHash = $request->vnp_SecureHash;
         $inputData = array();
-        foreach ($request->all() as $key => $value) {
+        foreach ($_GET as $key => $value) {
             if (substr($key, 0, 4) == "vnp_") {
                 $inputData[$key] = $value;
             }
         }
-        unset($inputData['vnp_SecureHashType']);
+
         unset($inputData['vnp_SecureHash']);
         ksort($inputData);
-        $hashdata = urldecode(http_build_query($inputData));
-        $secureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+        $i = 0;
+        $hashData = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashData = $hashData . '&' . urlencode($key) . "=" . urlencode($value);
+            } else {
+                $hashData = $hashData . urlencode($key) . "=" . urlencode($value);
+                $i = 1;
+            }
+        }
+
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
 
         Log::info('Generated secure hash: ' . $secureHash);
         Log::info('VNPay secure hash: ' . $vnp_SecureHash);
+//        dd($hashdata);
 
         if ($secureHash == $vnp_SecureHash) {
             if ($request->vnp_ResponseCode == '00') {
-                // Payment success
                 $cart = Cart::where('user_id', auth()->id())
                     ->where('status', 'pending')
                     ->first();
                 $cart->status = 'paid';
                 $cart->save();
 
-                // Update the user balance
                 $userBalance = UserBalance::where('user_id', auth()->id())->first();
                 $userBalance->balance += $cart->total_price;
                 $userBalance->save();
@@ -127,6 +138,4 @@ class VNPayController extends Controller
             return redirect()->route('cart.index')->with('error', 'Invalid signature!');
         }
     }
-
-
 }
