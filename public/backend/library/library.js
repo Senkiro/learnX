@@ -36,7 +36,13 @@
                     'modelId': _this.attr('data-modelId'),
                     'model': _this.attr('data-model'),
                     'field': _this.attr('data-field'),
+                    'role': _this.attr('role'),
                     '_token': csrfToken,
+                }
+                if (option.role === 'admin') {
+                    alert('Không thể thay đổi trạng thái của tài khoản admin.');
+                    _this.prop('checked', !_this.is(':checked'));
+                    return false;
                 }
                 $.ajax({
                     url: '/ajax/dashboard/changeStatus',
@@ -65,12 +71,20 @@
             $(document).on('click', '.changeStatusAll', function (e) {
                 let _this = $(this)
                 let id = []
+                let adminIds = ['1'];
                 $('.checkBoxItem').each(function () {
                     let checkBox = $(this)
                     if (checkBox.prop('checked')) {
                         id.push(checkBox.val())
                     }
                 })
+
+                for (let i = 0; i < id.length; i++) {
+                    if (adminIds.includes(id[i])) {
+                        alert('Không thể thay đổi trạng thái của tài khoản admin.');
+                         return false;
+                    }
+                }
 
                 let option = {
                     'value': _this.attr('data-value'),
@@ -79,6 +93,9 @@
                     'id':id,
                     '_token': csrfToken,
                 }
+
+                console.log(option)
+
 
                 $.ajax({
                     url: 'ajax/dashboard/changeStatusAll',

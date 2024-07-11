@@ -3,11 +3,8 @@
         <h4>EGATOR</h4>
     </a>
     <ul class="nav__menu">
-{{--        <li><a href="index.html">Home</a></li>--}}
-{{--        <li><a href="about.html">About</a></li>--}}
         <li><a href="{{ route('student_dashboard.index') }}">Courses</a></li>
         <li><a href="{{route('myCourse.index')}}">My Courses</a></li>
-{{--        <li><a href="contact.html">Contact</a></li>--}}
         <li><a href="{{route('cart.index')}}">Cart</a></li>
         <li><a href="{{ route('auth.logout') }}">
                 <i class="fa fa-sign-out"></i> Log out

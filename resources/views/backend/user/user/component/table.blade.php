@@ -39,7 +39,7 @@
                     {{$user->role->name ?? 'N/A'}}
                 </td>
                 <td class="text-center js-switch-{{$user->id}}">
-                    <input type="checkbox" value="{{$user->publish}}" class="js-switch status" data-field="publish" data-model="User"
+                    <input type="checkbox" value="{{$user->publish}}" class="js-switch status" data-field="publish" data-model="User" role="{{$user->role->name}}"
                            {{($user->publish == 2) ? 'checked' : ''}} data-modelId="{{$user->id}}"/>
                 </td>
                 <td class="text-center">

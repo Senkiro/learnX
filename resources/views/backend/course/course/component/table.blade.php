@@ -21,8 +21,8 @@
                     <input type="checkbox" id="userCheckbox" value="{{$course->id}}" class="input-checkbox checkBoxItem">
                 </td>
                 <td>{{ $course->title }}</td>
-                <td>{{\Illuminate\Support\Str::limit($course->description, 50) }}</td>
-                <td>{{ number_format($course->price, 2) }} $</td>
+                <td>{{Str::limit($course->description, 50) }}</td>
+                <td>{{ number_format($course->price, 2) }} vnđ</td>
 
                 <td>
                     @if($course->image)

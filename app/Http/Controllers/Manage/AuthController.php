@@ -34,6 +34,11 @@ class AuthController extends Controller
             if (Auth::user()->hasVerifiedEmail()) {
                 $user = Auth::user();
 //                dd($user);
+                if ($user->publish == 1) {
+                    Auth::logout();
+                    return redirect()->route('auth.admin')->with('error', 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ với quản trị viên.');
+                }
+
                 if ($user->hasRole('admin') || $user->hasRole('teacher')) {
                     return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công');
                 } else {

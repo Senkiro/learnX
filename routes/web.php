@@ -128,33 +128,34 @@ Route::get('/email/verify/{token}', [AuthController::class, 'verifyEmail'])->nam
 
 
 #COURSE ROUTE
-Route::group(['prefix'=>'course'],function (){
-    Route::get('index',[CourseController::class,'index'])->name('course.index')
+Route::group(['prefix'=>'course'],function () {
+    Route::get('index', [CourseController::class, 'index'])->name('course.index')
         ->middleware('admin');
 
     #CREATE
-    Route::get('create',[CourseController::class,'create'])->name('course.create')
+    Route::get('create', [CourseController::class, 'create'])->name('course.create')
         ->middleware('admin');
-    Route::post('store',[CourseController::class,'store'])->name('course.store')
+    Route::post('store', [CourseController::class, 'store'])->name('course.store')
         ->middleware('admin');
 
     #UPDATE
-    Route::get('{id}/edit',[CourseController::class,'edit'])->where(['id'=>'[0-9]+'])->name('course.edit')
+    Route::get('{id}/edit', [CourseController::class, 'edit'])->where(['id' => '[0-9]+'])->name('course.edit')
         ->middleware('admin');
-    Route::post('{id}/update',[CourseController::class,'update'])->where(['id'=>'[0-9]+'])->name('course.update')
+    Route::post('{id}/update', [CourseController::class, 'update'])->where(['id' => '[0-9]+'])->name('course.update')
         ->middleware('admin');
 
     #DELETE
-    Route::get('{id}/delete',[CourseController::class,'delete'])->where(['id'=>'[0-9]+'])->name('course.delete')
+    Route::get('{id}/delete', [CourseController::class, 'delete'])->where(['id' => '[0-9]+'])->name('course.delete')
         ->middleware('admin');
-    Route::post('{id}/destroy',[CourseController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('course.destroy')
+    Route::post('{id}/destroy', [CourseController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('course.destroy')
         ->middleware('admin');
-
+});
 #=====================================================STUDENT ROUTE =====================================================
 
 #CART
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add')
+        ->middleware('auth');
     Route::get('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
@@ -162,7 +163,7 @@ Route::group(['prefix'=>'course'],function (){
 #VNPAY
     Route::post('/vnpay_payment', [VNPayController::class, 'vnpay_payment'])->name('payment.create');
     Route::get('/payment/vnpay_return', [VNPayController::class, 'vnpayReturn'])->name('payment.vnpay_return');
-});
+
 
 #MY COURSE
     Route::get('myCourse/index', [MyCourseController::class, 'index'])->name('myCourse.index');

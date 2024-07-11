@@ -27,7 +27,7 @@
                 <article class="course" data-id="{{ $course->id }}">
                     <div class="course_-image">
                         @if($course->image)
-                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" height="200px">
+                            <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" height="150">
                         @else
                             <img src="path/to/default/image.jpg" alt="Default Image">
                         @endif
@@ -39,7 +39,7 @@
                             <span class="more-text">{{ $course->description }}</span>
                             <a href="#" class="read-more">Read more</a>
                         </p>
-                        <h4>{{ number_format($course->price, 2) }} $</h4>
+                        <h4>{{ number_format($course->price, 2) }} vnd</h4>
                         <a href="{{ route('cart.add', $course->id) }}" class="btn btn-primary">Add to Cart</a>
                     </div>
                 </article>
