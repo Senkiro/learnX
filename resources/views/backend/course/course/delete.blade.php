@@ -16,7 +16,7 @@
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label class="control-label text-left">Email
+                                    <label class="control-label text-left">Title
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label class="control-label text-left">Họ tên
+                                    <label class="control-label text-left">Description
                                         <span class="text-danger">(*)</span>
                                     </label>
                                     <input

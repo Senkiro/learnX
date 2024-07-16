@@ -45,7 +45,8 @@
                     return false;
                 }
                 $.ajax({
-                    url: '/ajax/dashboard/changeStatus',
+                    //url: 'ajax/dashboard/changeStatus',
+                    url: $(this).data('href'),
                     type: 'POST',
                     data: option,
                     dataType: 'json',

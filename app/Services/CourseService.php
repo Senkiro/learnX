@@ -26,7 +26,7 @@ class CourseService implements CourseServiceInterface
         $condition['publish'] = $request->integer('publish');
         $perPage =$request->integer('perpage');
         $course = $this->courseRepository->pagination($this->paginateSelect(),$condition,[],
-        ['path' => 'course/index'],$perPage);
+        ['path' => '/[course/index'],$perPage);
         return $course;
     }
 

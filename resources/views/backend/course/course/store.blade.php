@@ -94,7 +94,7 @@
                                         autocomplete="off">
                                     @if(isset($course) && $course->image)
                                         <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}"
-                                             width="100">
+                                             width="100%" height="150px">
                                     @endif
                                 </div>
                             </div>

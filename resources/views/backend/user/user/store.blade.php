@@ -135,23 +135,23 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="row mb15">
-                            <div class="col-lg-12">
-                                <div class="form-row">
-                                    <label class="control-label text-left saveContent">Ảnh đại diện
-                                        <span class="text-danger"></span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="image"
-                                        value="{{old('image',($user->image) ?? '')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        data-upload="Images">
-                                </div>
-                            </div>
-                        </div>
+{{--                        <div class="row mb15">--}}
+{{--                            <div class="col-lg-12">--}}
+{{--                                <div class="form-row">--}}
+{{--                                    <label class="control-label text-left saveContent">Ảnh đại diện--}}
+{{--                                        <span class="text-danger"></span>--}}
+{{--                                    </label>--}}
+{{--                                    <input--}}
+{{--                                        type="text"--}}
+{{--                                        name="image"--}}
+{{--                                        value="{{old('image',($user->image) ?? '')}}"--}}
+{{--                                        class="form-control"--}}
+{{--                                        placeholder=""--}}
+{{--                                        autocomplete="off"--}}
+{{--                                        data-upload="Images">--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>

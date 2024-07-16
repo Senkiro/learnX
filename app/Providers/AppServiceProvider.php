@@ -2,12 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
+
     protected $serviceBinding =[
         'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
         'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
@@ -37,6 +36,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $app_url = config("app.url");
 
+//        dd(config("app.env"));
+        if (app()->environment('production') && !empty($app_url)) {
+            $this->app['request']->server->set('HTTPS','on');
+
+            URL::forceRootUrl($app_url);
+            $schema = explode(':', $app_url)[0];
+
+            URL::forceScheme($schema);
+        }
     }
 }

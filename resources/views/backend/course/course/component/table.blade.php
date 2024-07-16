@@ -26,11 +26,11 @@
 
                 <td>
                     @if($course->image)
-                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" width="100%" height="50px">
+                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" width="100%" height="100px">
                     @endif
                 </td>
                 <td class="text-center js-switch-{{$course->id}}">
-                    <input type="checkbox" value="{{$course->publish}}" class="js-switch status" data-field="publish" data-model="Course"
+                    <input type="checkbox" data-href="{{route('ajax.dashboard.changeStatus')}}" value="{{$course->publish}}" class="js-switch status" data-field="publish" data-model="Course"
                            {{($course->publish == 2) ? 'checked' : ''}} data-modelId="{{$course->id}}"/>
                 </td>
                 <td class="text-center">

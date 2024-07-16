@@ -16,7 +16,7 @@ class VNPayController extends Controller
 
         $total = $request->input('total');
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "https://learnx.dev/payment/vnpay_return";
+        $vnp_Returnurl = env('APP_URL') . '/payment/vnpay_return';
         $vnp_TmnCode = "8X4DW6U5";//Mã website tại VNPAY
         $vnp_HashSecret = "M5QPBZZ5Y9S19FC5L8ZWELB24QVAKEH6"; //Chuỗi bí mật
 

@@ -19,7 +19,6 @@ class AuthController extends Controller
         if (Auth::id() > 0) {
             return redirect()->route('dashboard.index');
         }
-
         return view('backend.auth.login');
     }
 
@@ -103,6 +102,9 @@ class AuthController extends Controller
         $user->markEmailAsVerified();
 
 //        Auth::check()
+        $user->publish = 2;
+        $user->save();
+
         Auth::login($user);
 
         if ($user->hasRole('admin') || $user->hasRole('teacher')) {
